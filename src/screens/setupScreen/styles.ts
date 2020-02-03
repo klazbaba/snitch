@@ -1,27 +1,19 @@
 import { StyleSheet } from 'react-native';
 
+import { colors } from '../colors';
+
 export const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    justifyContent: 'center'
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 16
+    fontWeight: 'bold'
   },
   subTitle: {
     fontSize: 18,
     marginTop: 8
-  },
-  bigBackground: {
-    backgroundColor: '#774D14',
-    position: 'absolute',
-    top: 0,
-    opacity: 0.5,
-    bottom: 0,
-    right: 0,
-    left: 0,
-    borderBottomLeftRadius: 259
   },
   svg: {
     position: 'absolute',
@@ -30,5 +22,13 @@ export const styles = StyleSheet.create({
   },
   textContainer: {
     marginHorizontal: 16
+  },
+  button: {
+    backgroundColor: colors.green,
+    justifyContent: 'center',
+    borderRadius: 8,
+    width: 200,
+    alignSelf: 'center',
+    marginTop: 64
   }
 });
