@@ -3,7 +3,10 @@ import { createStackNavigator } from 'react-navigation-stack';
 
 const SetupStack = createStackNavigator(
   {
-    SetUpScreen: {
+    WelcomeScreen: {
+      getScreen: () => require('./screens/welcomeScreen').default
+    },
+    SetupScreen: {
       getScreen: () => require('./screens/setupScreen').default
     }
   },
