@@ -1,3 +1,4 @@
 export const colors = {
-  green: '#64DC64'
+  green: '#64DC64',
+  white: 'white'
 };

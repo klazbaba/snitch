@@ -1,11 +1,20 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { Text, TextProperties, StyleSheet } from 'react-native';
 
-interface Props {
+interface Props extends TextProperties {
   text: string;
-  style?: object;
 }
 
-const CustomText = (props: Props) => <Text style={props.style}>{props.text}</Text>;
+const CustomText = (props: Props) => (
+  <Text style={styles.text} {...props}>
+    {props.text}
+  </Text>
+);
+
+const styles = StyleSheet.create({
+  text: {
+    fontSize: 16
+  }
+});
 
 export default CustomText;

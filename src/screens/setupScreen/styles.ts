@@ -9,7 +9,8 @@ export const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 32
   },
   subTitle: {
     fontSize: 18,
@@ -30,5 +31,8 @@ export const styles = StyleSheet.create({
     width: 200,
     alignSelf: 'center',
     marginTop: 64
+  },
+  buttonText: {
+    fontSize: 16
   }
 });

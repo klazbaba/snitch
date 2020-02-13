@@ -20,10 +20,10 @@ export default class SetupScreen extends Component<Props> {
             style={styles.subTitle}
           />
           <CustomText
-            text='To be able to use our services, we will need you to supply a few information to us.'
+            text='To be able to use Snitch, you will need to supply a few information.'
             style={styles.subTitle}
           />
-          <CustomButton text='Get Started' style={styles.button} />
+          <CustomButton text='Get Started' style={styles.button} textStyle={styles.buttonText} />
         </View>
 
         <Svg
