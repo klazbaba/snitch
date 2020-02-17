@@ -4,7 +4,7 @@ import Svg, { Path } from 'react-native-svg';
 
 import { styles } from './styles';
 import CustomText from '../_components/customText';
-import CustomButton from '../_components/customButton';
+import CustomButton from '../_components/CustomButton';
 import { colors } from '../colors';
 
 interface Props {

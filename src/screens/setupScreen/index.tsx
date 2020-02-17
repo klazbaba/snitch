@@ -5,6 +5,7 @@ import { Fab, Toast } from 'native-base';
 import { styles } from './styles';
 import ContactDetails from './_components/ContactDetails';
 import CustomText from '../_components/customText';
+import CustomButton from '../_components/CustomButton';
 
 interface Props {}
 
@@ -43,6 +44,8 @@ export default class SetupScreen extends Component<Props, State> {
     this.setState({ numberOfContactShown: numberOfContactShown + 1 });
   };
 
+  saveContacts = () => {};
+
   render() {
     const { numberOfContactShown } = this.state;
 
@@ -52,7 +55,12 @@ export default class SetupScreen extends Component<Props, State> {
           <ContactDetails style={styles.firstContactDetails} />
 
           {numberOfContactShown > 1 ? <ContactDetails style={{ bottom: secondWrapper }} /> : null}
-          {numberOfContactShown > 2 ? <ContactDetails style={{ bottom: thirdWrapper }} /> : null}
+          {numberOfContactShown > 2 ? (
+            <>
+              <ContactDetails style={{ bottom: thirdWrapper }} />
+              <CustomButton text='Save' onPress={this.saveContacts} style={styles.button} />
+            </>
+          ) : null}
         </ScrollView>
 
         <Fab style={styles.fab} onPress={this.handleFabPress}>

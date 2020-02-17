@@ -20,5 +20,8 @@ export const styles = StyleSheet.create({
   firstContactDetails: {
     position: null,
     bottom: null
+  },
+  button: {
+    margin: 24
   }
 });
