@@ -7,25 +7,44 @@ import CustomText from '../../_components/customText';
 
 interface Props extends ViewProperties {
   style?: object;
+  onContactNameChange: (text: string) => void;
+  onContactEmailChange: (text: string) => void;
+  onUsernameChange: (text: string) => void;
+  contactNameError: boolean;
+  emailError: boolean;
+  usernameError: boolean;
 }
 
 const ContactDetails = (props: Props) => {
   return (
     <Animated.View {...props} style={[styles.wrapper, props.style]}>
       <Form>
-        <Item floatingLabel>
+        <Item floatingLabel error={props.contactNameError}>
           <Label style={styles.label}>Contact Name</Label>
-          <Input style={styles.input} />
+          <Input
+            style={styles.input}
+            onChangeText={props.onContactNameChange}
+            autoCapitalize='words'
+          />
         </Item>
 
-        <Item floatingLabel>
+        <Item floatingLabel error={props.emailError}>
           <Label style={styles.label}>Contact Email</Label>
-          <Input style={styles.input} />
+          <Input
+            style={styles.input}
+            onChangeText={props.onContactEmailChange}
+            keyboardType='email-address'
+            autoCapitalize='none'
+          />
         </Item>
 
-        <Item floatingLabel>
+        <Item floatingLabel error={props.usernameError}>
           <Label style={styles.label}>Your Name</Label>
-          <Input style={styles.input} />
+          <Input
+            style={styles.input}
+            onChangeText={props.onUsernameChange}
+            autoCapitalize='words'
+          />
         </Item>
         <CustomText
           text={'Enter a name this person recognizes you with'}
