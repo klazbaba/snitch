@@ -14,20 +14,21 @@ const ContactDetails = (props: Props) => {
     <Animated.View {...props} style={[styles.wrapper, props.style]}>
       <Form>
         <Item floatingLabel>
-          <Label style={styles.label}>Your Name</Label>
+          <Label style={styles.label}>Contact Name</Label>
           <Input style={styles.input} />
         </Item>
-        <CustomText
-          text={'Enter a name this person recognizes you with'}
-          style={styles.underneathText}
-        />
 
         <Item floatingLabel>
           <Label style={styles.label}>Contact Email</Label>
           <Input style={styles.input} />
         </Item>
+
+        <Item floatingLabel>
+          <Label style={styles.label}>Your Name</Label>
+          <Input style={styles.input} />
+        </Item>
         <CustomText
-          text='The email of the person you want to contact'
+          text={'Enter a name this person recognizes you with'}
           style={styles.underneathText}
         />
       </Form>

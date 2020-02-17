@@ -26,7 +26,7 @@ export default class SetupScreen extends Component<Props, State> {
   animateUpward = (wrapper: Animated.Value) => {
     Animated.timing(wrapper, {
       toValue: 0,
-      duration: 1500
+      duration: wrapper === secondWrapper ? 1500 : 1000
     }).start();
   };
 
@@ -39,13 +39,15 @@ export default class SetupScreen extends Component<Props, State> {
   };
 
   render() {
+    const { numberOfContactShown } = this.state;
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
           <ContactDetails style={styles.firstContactDetails} />
 
-          <ContactDetails style={{ bottom: secondWrapper }} />
-          <ContactDetails style={{ bottom: thirdWrapper }} />
+          {numberOfContactShown > 1 ? <ContactDetails style={{ bottom: secondWrapper }} /> : null}
+          {numberOfContactShown > 2 ? <ContactDetails style={{ bottom: thirdWrapper }} /> : null}
         </ScrollView>
 
         <Fab style={styles.fab} onPress={this.handleFabPress}>
