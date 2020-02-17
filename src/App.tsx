@@ -1,5 +1,7 @@
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import React, { Component } from 'react';
+import { Root } from 'native-base';
 
 const SetupStack = createStackNavigator(
   {
@@ -15,6 +17,14 @@ const SetupStack = createStackNavigator(
   }
 );
 
-const Routes = createAppContainer(SetupStack);
+const AppRoute = createAppContainer(SetupStack);
 
-export default Routes;
+export default class Routes extends Component {
+  render() {
+    return (
+      <Root>
+        <AppRoute />
+      </Root>
+    );
+  }
+}
