@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { ScrollView, SafeAreaView, Animated, Dimensions } from 'react-native';
 import { Fab, Toast } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import { styles } from './styles';
 import ContactDetails from './_components/ContactDetails';
@@ -127,28 +128,25 @@ export default class SetupScreen extends Component<Props> {
                                             style: { backgroundColor: colors.red }
                                           });
                                         } else {
-                                          console.warn(
-                                            JSON.stringify(
-                                              {
-                                                0: {
-                                                  contactEmail: contactEmail[0],
-                                                  contactName: contactName[0],
-                                                  username: username[0]
-                                                },
-                                                1: {
-                                                  contactEmail: contactEmail[1],
-                                                  contactName: contactName[1],
-                                                  username: username[1]
-                                                },
-                                                2: {
-                                                  contactEmail: contactEmail[2],
-                                                  contactName: contactName[2],
-                                                  username: username[2]
-                                                }
+                                          AsyncStorage.setItem(
+                                            'contactDetails',
+                                            JSON.stringify({
+                                              0: {
+                                                contactEmail: contactEmail[0],
+                                                contactName: contactName[0],
+                                                username: username[0]
                                               },
-                                              null,
-                                              10
-                                            )
+                                              1: {
+                                                contactEmail: contactEmail[1],
+                                                contactName: contactName[1],
+                                                username: username[1]
+                                              },
+                                              2: {
+                                                contactEmail: contactEmail[2],
+                                                contactName: contactName[2],
+                                                username: username[2]
+                                              }
+                                            })
                                           );
                                         }
                                       });
