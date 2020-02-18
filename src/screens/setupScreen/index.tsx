@@ -6,12 +6,13 @@ import { styles } from './styles';
 import ContactDetails from './_components/ContactDetails';
 import CustomText from '../_components/customText';
 import CustomButton from '../_components/CustomButton';
+import { colors } from '../colors';
+import { constants } from '../../constants';
 
 interface Props {}
 
 interface State {
   numberOfContactShown: number;
-  animateFirstContactWrapper: boolean;
   contactName: Array<string>;
   contactEmail: Array<string>;
   username: Array<string>;
@@ -33,7 +34,6 @@ const thirdWrapper = new Animated.Value(-height);
 export default class SetupScreen extends Component<Props> {
   state: State = {
     numberOfContactShown: 1,
-    animateFirstContactWrapper: false,
     contactName: ['', '', ''],
     contactEmail: ['', '', ''],
     username: ['', '', ''],
@@ -63,12 +63,12 @@ export default class SetupScreen extends Component<Props> {
     else if (numberOfContactShown > 2)
       Toast.show({
         text: 'You have already added the maximum number of contacts!',
-        duration: 2500
+        duration: constants.toastDuration
       });
     this.setState({ numberOfContactShown: numberOfContactShown + 1 });
   };
 
-  validateContactName = (names: Array<string>): number[] => {
+  validateName = (names: Array<string>): number[] => {
     const result = names.map((name: string, index: number) => {
       const isValid = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/g.test(name);
       if (!isValid) return index;
@@ -76,38 +76,90 @@ export default class SetupScreen extends Component<Props> {
     return result;
   };
 
+  validateEmail = (emails: Array<string>) => {
+    const result = emails.map((email: string, index: number) => {
+      const isValid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
+        email
+      );
+      if (!isValid) return index;
+    });
+    return result;
+  };
+
   saveContacts = () => {
     const { contactEmail, contactName, username } = this.state;
-    const contactNameError = this.validateContactName(contactName);
-    console.warn(contactNameError);
+    const contactNameError = this.validateName(contactName);
+    const emailError = this.validateEmail(contactEmail);
+    const usernameError = this.validateName(username);
 
-    if (contactNameError[0] === 0) this.setState({ firstContactNameHasError: true });
-    if (contactNameError[1] === 1) this.setState({ secondContactNameHasError: true });
-    if (contactNameError[2] === 2) this.setState({ thirdContactNameHasError: true });
-
-    console.warn(
-      JSON.stringify(
-        {
-          0: {
-            contactEmail: contactEmail[0],
-            contactName: contactName[0],
-            username: username[0]
-          },
-          1: {
-            contactEmail: contactEmail[1],
-            contactName: contactName[1],
-            username: username[1]
-          },
-          2: {
-            contactEmail: contactEmail[2],
-            contactName: contactName[2],
-            username: username[2]
-          }
-        },
-        null,
-        10
-      )
-    );
+    if (contactNameError[0] === 0)
+      this.setState({ firstContactNameHasError: true }, () => {
+        if (contactNameError[1] === 1)
+          this.setState({ secondContactNameHasError: true }, () => {
+            if (contactNameError[2] === 2)
+              this.setState({ thirdContactNameHasError: true }, () => {
+                if (emailError[0] === 0)
+                  this.setState({ firstContactEmailHasError: true }, () => {
+                    if (emailError[1] === 1)
+                      this.setState({ secondContactEmailHasError: true }, () => {
+                        if (emailError[2] === 2)
+                          this.setState({ thirdContactEmailHasError: true }, () => {
+                            if (usernameError[0] === 0)
+                              this.setState({ firstUsernameHasError: true }, () => {
+                                if (usernameError[1] === 1)
+                                  this.setState({ secondUsernameHasError: true }, () => {
+                                    if (usernameError[2] === 2)
+                                      this.setState({ thirdUsernameHasError: true }, () => {
+                                        if (
+                                          this.state.firstContactNameHasError ||
+                                          this.state.secondContactNameHasError ||
+                                          this.state.thirdContactNameHasError ||
+                                          this.state.firstContactEmailHasError ||
+                                          this.state.secondContactEmailHasError ||
+                                          this.state.thirdContactEmailHasError ||
+                                          this.state.firstUsernameHasError ||
+                                          this.state.secondUsernameHasError ||
+                                          this.state.thirdUsernameHasError
+                                        ) {
+                                          Toast.show({
+                                            text: 'An error occurred, details not saved!',
+                                            duration: constants.toastDuration,
+                                            style: { backgroundColor: colors.red }
+                                          });
+                                        } else {
+                                          console.warn(
+                                            JSON.stringify(
+                                              {
+                                                0: {
+                                                  contactEmail: contactEmail[0],
+                                                  contactName: contactName[0],
+                                                  username: username[0]
+                                                },
+                                                1: {
+                                                  contactEmail: contactEmail[1],
+                                                  contactName: contactName[1],
+                                                  username: username[1]
+                                                },
+                                                2: {
+                                                  contactEmail: contactEmail[2],
+                                                  contactName: contactName[2],
+                                                  username: username[2]
+                                                }
+                                              },
+                                              null,
+                                              10
+                                            )
+                                          );
+                                        }
+                                      });
+                                  });
+                              });
+                          });
+                      });
+                  });
+              });
+          });
+      });
   };
 
   render() {
