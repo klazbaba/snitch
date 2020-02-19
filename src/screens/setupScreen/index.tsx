@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ScrollView, SafeAreaView, Animated, Dimensions } from 'react-native';
+import { ScrollView, SafeAreaView, Animated, Dimensions, ActivityIndicator } from 'react-native';
 import { Fab, Toast } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -130,23 +130,27 @@ export default class SetupScreen extends Component<Props> {
                                         } else {
                                           AsyncStorage.setItem(
                                             'contactDetails',
-                                            JSON.stringify({
-                                              0: {
-                                                contactEmail: contactEmail[0],
-                                                contactName: contactName[0],
-                                                username: username[0]
+                                            JSON.stringify(
+                                              {
+                                                0: {
+                                                  contactEmail: contactEmail[0],
+                                                  contactName: contactName[0],
+                                                  username: username[0]
+                                                },
+                                                1: {
+                                                  contactEmail: contactEmail[1],
+                                                  contactName: contactName[1],
+                                                  username: username[1]
+                                                },
+                                                2: {
+                                                  contactEmail: contactEmail[2],
+                                                  contactName: contactName[2],
+                                                  username: username[2]
+                                                }
                                               },
-                                              1: {
-                                                contactEmail: contactEmail[1],
-                                                contactName: contactName[1],
-                                                username: username[1]
-                                              },
-                                              2: {
-                                                contactEmail: contactEmail[2],
-                                                contactName: contactName[2],
-                                                username: username[2]
-                                              }
-                                            })
+                                              null,
+                                              10
+                                            )
                                           );
                                         }
                                       });
@@ -158,6 +162,10 @@ export default class SetupScreen extends Component<Props> {
               });
           });
       });
+  };
+
+  componentDidMount = async () => {
+    console.warn(JSON.stringify(await AsyncStorage.getItem('contactDetails'), null, 10));
   };
 
   render() {
@@ -221,6 +229,7 @@ export default class SetupScreen extends Component<Props> {
         <Fab style={styles.fab} onPress={this.handleFabPress}>
           <CustomText text={'\u002B'} style={styles.plusIcon} />
         </Fab>
+        <ActivityIndicator size='large' style={styles.indicator} />
       </SafeAreaView>
     );
   }

@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
     padding: 16
   },
   plusIcon: {
-    fontSize: 48
+    fontSize: 48,
+    lineHeight: 0
   },
   fab: {
     justifyContent: 'center',
@@ -23,5 +24,12 @@ export const styles = StyleSheet.create({
   },
   button: {
     margin: 24
+  },
+  indicator: {
+    position: 'absolute',
+    top: '50%',
+    bottom: '50%',
+    left: '50%',
+    right: '50%'
   }
 });
