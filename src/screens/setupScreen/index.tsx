@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, SafeAreaView, Animated, Dimensions, ActivityIndicator } from 'react-native';
+import {
+  ScrollView,
+  SafeAreaView,
+  Animated,
+  Dimensions,
+  ActivityIndicator,
+  KeyboardAvoidingView
+} from 'react-native';
 import { Fab, Toast } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -26,6 +33,7 @@ interface State {
   thirdContactNameHasError: boolean;
   thirdContactEmailHasError: boolean;
   thirdUsernameHasError: boolean;
+  showIndicator: boolean;
 }
 
 const { height } = Dimensions.get('window');
@@ -46,7 +54,8 @@ export default class SetupScreen extends Component<Props> {
     secondUsernameHasError: false,
     thirdContactNameHasError: false,
     thirdContactEmailHasError: false,
-    thirdUsernameHasError: false
+    thirdUsernameHasError: false,
+    showIndicator: false
   };
 
   animateUpward = (wrapper: Animated.Value) => {
@@ -88,11 +97,12 @@ export default class SetupScreen extends Component<Props> {
   };
 
   saveContacts = () => {
-    const { contactEmail, contactName, username } = this.state;
+    const { contactEmail, contactName, username, showIndicator } = this.state;
     const contactNameError = this.validateName(contactName);
     const emailError = this.validateEmail(contactEmail);
     const usernameError = this.validateName(username);
 
+    this.setState({ showIndicator: true });
     if (contactNameError[0] === 0)
       this.setState({ firstContactNameHasError: true }, () => {
         if (contactNameError[1] === 1)
@@ -162,6 +172,7 @@ export default class SetupScreen extends Component<Props> {
               });
           });
       });
+    this.setState({ showIndicator: false });
   };
 
   componentDidMount = async () => {
@@ -182,54 +193,57 @@ export default class SetupScreen extends Component<Props> {
       secondUsernameHasError,
       thirdContactEmailHasError,
       thirdContactNameHasError,
-      thirdUsernameHasError
+      thirdUsernameHasError,
+      showIndicator
     } = this.state;
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container}>
-          <ContactDetails
-            style={styles.firstContactDetails}
-            onContactEmailChange={email => (contactEmail[0] = email.trim())}
-            onContactNameChange={name => (contactName[0] = name.trim())}
-            onUsernameChange={name => (username[0] = name.trim())}
-            contactNameError={firstContactNameHasError}
-            usernameError={firstUsernameHasError}
-            emailError={firstContactEmailHasError}
-          />
-
-          {numberOfContactShown > 1 ? (
+          <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={50}>
             <ContactDetails
-              style={{ bottom: secondWrapper }}
-              onContactEmailChange={email => (contactEmail[1] = email.trim())}
-              onContactNameChange={name => (contactName[1] = name.trim())}
-              onUsernameChange={name => (username[1] = name.trim())}
-              contactNameError={secondContactNameHasError}
-              usernameError={secondUsernameHasError}
-              emailError={secondContactEmailHasError}
+              style={styles.firstContactDetails}
+              onContactEmailChange={email => (contactEmail[0] = email.trim())}
+              onContactNameChange={name => (contactName[0] = name.trim())}
+              onUsernameChange={name => (username[0] = name.trim())}
+              contactNameError={firstContactNameHasError}
+              usernameError={firstUsernameHasError}
+              emailError={firstContactEmailHasError}
             />
-          ) : null}
 
-          {numberOfContactShown > 2 ? (
-            <>
+            {numberOfContactShown > 1 ? (
               <ContactDetails
-                style={{ bottom: thirdWrapper }}
-                onContactEmailChange={email => (contactEmail[2] = email.trim())}
-                onContactNameChange={name => (contactName[2] = name.trim())}
-                onUsernameChange={name => (username[2] = name.trim())}
-                contactNameError={thirdContactNameHasError}
-                usernameError={thirdUsernameHasError}
-                emailError={thirdContactEmailHasError}
+                style={{ bottom: secondWrapper }}
+                onContactEmailChange={email => (contactEmail[1] = email.trim())}
+                onContactNameChange={name => (contactName[1] = name.trim())}
+                onUsernameChange={name => (username[1] = name.trim())}
+                contactNameError={secondContactNameHasError}
+                usernameError={secondUsernameHasError}
+                emailError={secondContactEmailHasError}
               />
-              <CustomButton text='Save' onPress={this.saveContacts} style={styles.button} />
-            </>
-          ) : null}
+            ) : null}
+
+            {numberOfContactShown > 2 ? (
+              <>
+                <ContactDetails
+                  style={{ bottom: thirdWrapper }}
+                  onContactEmailChange={email => (contactEmail[2] = email.trim())}
+                  onContactNameChange={name => (contactName[2] = name.trim())}
+                  onUsernameChange={name => (username[2] = name.trim())}
+                  contactNameError={thirdContactNameHasError}
+                  usernameError={thirdUsernameHasError}
+                  emailError={thirdContactEmailHasError}
+                />
+                <CustomButton text='Save' onPress={this.saveContacts} style={styles.button} />
+              </>
+            ) : null}
+          </KeyboardAvoidingView>
         </ScrollView>
 
         <Fab style={styles.fab} onPress={this.handleFabPress}>
           <CustomText text={'\u002B'} style={styles.plusIcon} />
         </Fab>
-        <ActivityIndicator size='large' style={styles.indicator} />
+        <ActivityIndicator size='large' style={styles.indicator} animating={showIndicator} />
       </SafeAreaView>
     );
   }
