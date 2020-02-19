@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 
 import { colors } from '../colors';
 
@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
   },
   plusIcon: {
     fontSize: 48,
-    lineHeight: 0
+    lineHeight: Platform.OS === 'ios' ? 0 : null
   },
   fab: {
     justifyContent: 'center',

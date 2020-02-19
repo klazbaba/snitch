@@ -96,8 +96,8 @@ export default class SetupScreen extends Component<Props> {
     return result;
   };
 
-  saveContacts = () => {
-    const { contactEmail, contactName, username, showIndicator } = this.state;
+  saveContacts = async () => {
+    const { contactEmail, contactName, username } = this.state;
     const contactNameError = this.validateName(contactName);
     const emailError = this.validateEmail(contactEmail);
     const usernameError = this.validateName(username);
@@ -120,7 +120,7 @@ export default class SetupScreen extends Component<Props> {
                                 if (usernameError[1] === 1)
                                   this.setState({ secondUsernameHasError: true }, () => {
                                     if (usernameError[2] === 2)
-                                      this.setState({ thirdUsernameHasError: true }, () => {
+                                      this.setState({ thirdUsernameHasError: true }, async () => {
                                         if (
                                           this.state.firstContactNameHasError ||
                                           this.state.secondContactNameHasError ||
@@ -137,31 +137,6 @@ export default class SetupScreen extends Component<Props> {
                                             duration: constants.toastDuration,
                                             style: { backgroundColor: colors.red }
                                           });
-                                        } else {
-                                          AsyncStorage.setItem(
-                                            'contactDetails',
-                                            JSON.stringify(
-                                              {
-                                                0: {
-                                                  contactEmail: contactEmail[0],
-                                                  contactName: contactName[0],
-                                                  username: username[0]
-                                                },
-                                                1: {
-                                                  contactEmail: contactEmail[1],
-                                                  contactName: contactName[1],
-                                                  username: username[1]
-                                                },
-                                                2: {
-                                                  contactEmail: contactEmail[2],
-                                                  contactName: contactName[2],
-                                                  username: username[2]
-                                                }
-                                              },
-                                              null,
-                                              10
-                                            )
-                                          );
                                         }
                                       });
                                   });
@@ -172,6 +147,28 @@ export default class SetupScreen extends Component<Props> {
               });
           });
       });
+    else {
+      await AsyncStorage.setItem(
+        'contactDetails',
+        JSON.stringify({
+          0: {
+            contactEmail: contactEmail[0],
+            contactName: contactName[0],
+            username: username[0]
+          },
+          1: {
+            contactEmail: contactEmail[1],
+            contactName: contactName[1],
+            username: username[1]
+          },
+          2: {
+            contactEmail: contactEmail[2],
+            contactName: contactName[2],
+            username: username[2]
+          }
+        })
+      );
+    }
     this.setState({ showIndicator: false });
   };
 
@@ -199,8 +196,8 @@ export default class SetupScreen extends Component<Props> {
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.container}>
-          <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={50}>
+        <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps='handled'>
+          <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={30}>
             <ContactDetails
               style={styles.firstContactDetails}
               onContactEmailChange={email => (contactEmail[0] = email.trim())}
@@ -243,7 +240,7 @@ export default class SetupScreen extends Component<Props> {
         <Fab style={styles.fab} onPress={this.handleFabPress}>
           <CustomText text={'\u002B'} style={styles.plusIcon} />
         </Fab>
-        <ActivityIndicator size='large' style={styles.indicator} animating={showIndicator} />
+        {showIndicator ? <ActivityIndicator size='large' style={styles.indicator} /> : null}
       </SafeAreaView>
     );
   }
