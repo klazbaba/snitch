@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, { Component, createRef, RefObject } from 'react';
 import {
   ScrollView,
   SafeAreaView,
   Animated,
   Dimensions,
   ActivityIndicator,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  TextInput
 } from 'react-native';
 import { Fab, Toast } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -37,8 +38,10 @@ interface State {
 }
 
 const { height } = Dimensions.get('window');
-const secondWrapper = new Animated.Value(-height);
-const thirdWrapper = new Animated.Value(-height);
+const secondWrapper: Animated.Value = new Animated.Value(-height);
+const thirdWrapper: Animated.Value = new Animated.Value(-height);
+let firstContactEmailInput: any;
+let firstUsernameInput: any;
 
 export default class SetupScreen extends Component<Props> {
   state: State = {
@@ -206,6 +209,10 @@ export default class SetupScreen extends Component<Props> {
               contactNameError={firstContactNameHasError}
               usernameError={firstUsernameHasError}
               emailError={firstContactEmailHasError}
+              emailRef={email => (firstContactEmailInput = email)}
+              onSubmitContactName={() => firstContactEmailInput._root.focus()}
+              onSubmitContactEmail={() => firstUsernameInput._root.focus()}
+              usernameRef={username => (firstUsernameInput = username)}
             />
 
             {numberOfContactShown > 1 ? (
@@ -230,6 +237,7 @@ export default class SetupScreen extends Component<Props> {
                   contactNameError={thirdContactNameHasError}
                   usernameError={thirdUsernameHasError}
                   emailError={thirdContactEmailHasError}
+                  returnKeyType='done'
                 />
                 <CustomButton text='Save' onPress={this.saveContacts} style={styles.button} />
               </>

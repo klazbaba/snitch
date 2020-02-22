@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet, Animated, ViewProperties } from 'react-native';
+import React, { Component, RefObject } from 'react';
+import { StyleSheet, Animated, ViewProperties, TextInput } from 'react-native';
 import { Form, Item, Input, Label } from 'native-base';
 
 import { colors } from '../../colors';
@@ -13,47 +13,63 @@ interface Props extends ViewProperties {
   contactNameError: boolean;
   emailError: boolean;
   usernameError: boolean;
+  onSubmitContactName: () => void;
+  contactNameRef: RefObject<TextInput>;
+  emailRef: (email: TextInput) => void;
+  returnKeyType?: 'done';
+  onSubmitContactEmail: () => void;
+  usernameRef: (username: TextInput) => void;
 }
 
-const ContactDetails = (props: Props) => {
-  return (
-    <Animated.View {...props} style={[styles.wrapper, props.style]}>
-      <Form>
-        <Item floatingLabel error={props.contactNameError}>
-          <Label style={styles.label}>Contact Name</Label>
-          <Input
-            style={styles.input}
-            onChangeText={props.onContactNameChange}
-            autoCapitalize='words'
-          />
-        </Item>
+class ContactDetails extends Component<Props> {
+  render() {
+    return (
+      <Animated.View {...this.props} style={[styles.wrapper, this.props.style]}>
+        <Form>
+          <Item floatingLabel error={this.props.contactNameError}>
+            <Label style={styles.label}>Contact Name</Label>
+            <Input
+              style={styles.input}
+              onChangeText={this.props.onContactNameChange}
+              autoCapitalize='words'
+              ref={this.props.contactNameRef}
+              onSubmitEditing={this.props.onSubmitContactName}
+              returnKeyType='next'
+            />
+          </Item>
 
-        <Item floatingLabel error={props.emailError}>
-          <Label style={styles.label}>Contact Email</Label>
-          <Input
-            style={styles.input}
-            onChangeText={props.onContactEmailChange}
-            keyboardType='email-address'
-            autoCapitalize='none'
-          />
-        </Item>
+          <Item floatingLabel error={this.props.emailError}>
+            <Label style={styles.label}>Contact Email</Label>
+            <Input
+              style={styles.input}
+              onChangeText={this.props.onContactEmailChange}
+              keyboardType='email-address'
+              autoCapitalize='none'
+              getRef={this.props.emailRef}
+              returnKeyType='next'
+              onSubmitEditing={this.props.onSubmitContactEmail}
+            />
+          </Item>
 
-        <Item floatingLabel error={props.usernameError}>
-          <Label style={styles.label}>Your Name</Label>
-          <Input
-            style={styles.input}
-            onChangeText={props.onUsernameChange}
-            autoCapitalize='words'
+          <Item floatingLabel error={this.props.usernameError}>
+            <Label style={styles.label}>Your Name</Label>
+            <Input
+              style={styles.input}
+              onChangeText={this.props.onUsernameChange}
+              autoCapitalize='words'
+              returnKeyType={this.props.returnKeyType}
+              getRef={this.props.usernameRef}
+            />
+          </Item>
+          <CustomText
+            text={'Enter a name this person recognizes you with'}
+            style={styles.underneathText}
           />
-        </Item>
-        <CustomText
-          text={'Enter a name this person recognizes you with'}
-          style={styles.underneathText}
-        />
-      </Form>
-    </Animated.View>
-  );
-};
+        </Form>
+      </Animated.View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   wrapper: {
