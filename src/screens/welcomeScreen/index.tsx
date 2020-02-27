@@ -23,10 +23,6 @@ export default class WelcomeScreen extends Component<Props> {
             text='We help your loved ones find you in case you illegally got picked up.'
             style={styles.subTitle}
           />
-          <CustomText
-            text='To be able to use Snitch, you will need to supply a few information.'
-            style={styles.subTitle}
-          />
           <CustomButton
             text='Get Started'
             style={styles.button}

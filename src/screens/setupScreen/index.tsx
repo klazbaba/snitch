@@ -1,12 +1,11 @@
-import React, { Component, createRef, RefObject } from 'react';
+import React, { Component } from 'react';
 import {
   ScrollView,
   SafeAreaView,
   Animated,
   Dimensions,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  TextInput
+  KeyboardAvoidingView
 } from 'react-native';
 import { Fab, Toast } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -42,6 +41,10 @@ const secondWrapper: Animated.Value = new Animated.Value(-height);
 const thirdWrapper: Animated.Value = new Animated.Value(-height);
 let firstContactEmailInput: any;
 let firstUsernameInput: any;
+let secondContactEmail: any;
+let secondUsernameInput: any;
+let thirdContactEmailInput: any;
+let thirdUsernameInput: any;
 
 export default class SetupScreen extends Component<Props> {
   state: State = {
@@ -175,10 +178,6 @@ export default class SetupScreen extends Component<Props> {
     this.setState({ showIndicator: false });
   };
 
-  componentDidMount = async () => {
-    console.warn(JSON.stringify(await AsyncStorage.getItem('contactDetails'), null, 10));
-  };
-
   render() {
     const {
       numberOfContactShown,
@@ -201,6 +200,7 @@ export default class SetupScreen extends Component<Props> {
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView contentContainerStyle={styles.container} keyboardShouldPersistTaps='handled'>
           <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={30}>
+            <CustomText text='Who do you want to inform when in distress?' style={styles.title} />
             <ContactDetails
               style={styles.firstContactDetails}
               onContactEmailChange={email => (contactEmail[0] = email.trim())}
@@ -213,6 +213,7 @@ export default class SetupScreen extends Component<Props> {
               onSubmitContactName={() => firstContactEmailInput._root.focus()}
               onSubmitContactEmail={() => firstUsernameInput._root.focus()}
               usernameRef={username => (firstUsernameInput = username)}
+              autoFocus
             />
 
             {numberOfContactShown > 1 ? (
@@ -224,6 +225,10 @@ export default class SetupScreen extends Component<Props> {
                 contactNameError={secondContactNameHasError}
                 usernameError={secondUsernameHasError}
                 emailError={secondContactEmailHasError}
+                emailRef={contactName => (secondContactEmail = contactName)}
+                onSubmitContactName={() => secondContactEmail._root.focus()}
+                onSubmitContactEmail={() => secondUsernameInput._root.focus()}
+                usernameRef={username => (secondUsernameInput = username)}
               />
             ) : null}
 
@@ -237,7 +242,11 @@ export default class SetupScreen extends Component<Props> {
                   contactNameError={thirdContactNameHasError}
                   usernameError={thirdUsernameHasError}
                   emailError={thirdContactEmailHasError}
-                  returnKeyType='done'
+                  emailRef={contactName => (thirdContactEmailInput = contactName)}
+                  onSubmitContactName={() => thirdContactEmailInput._root.focus()}
+                  onSubmitContactEmail={() => thirdUsernameInput._root.focus()}
+                  usernameRef={username => (thirdUsernameInput = username)}
+                  onSubmitUsername={this.saveContacts}
                 />
                 <CustomButton text='Save' onPress={this.saveContacts} style={styles.button} />
               </>

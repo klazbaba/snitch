@@ -1,4 +1,4 @@
-import React, { Component, RefObject } from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Animated, ViewProperties, TextInput } from 'react-native';
 import { Form, Item, Input, Label } from 'native-base';
 
@@ -14,11 +14,12 @@ interface Props extends ViewProperties {
   emailError: boolean;
   usernameError: boolean;
   onSubmitContactName: () => void;
-  contactNameRef: RefObject<TextInput>;
   emailRef: (email: TextInput) => void;
-  returnKeyType?: 'done';
+  returnKeyType?: 'default';
   onSubmitContactEmail: () => void;
   usernameRef: (username: TextInput) => void;
+  onSubmitUsername?: () => void;
+  autoFocus?: boolean;
 }
 
 class ContactDetails extends Component<Props> {
@@ -32,9 +33,9 @@ class ContactDetails extends Component<Props> {
               style={styles.input}
               onChangeText={this.props.onContactNameChange}
               autoCapitalize='words'
-              ref={this.props.contactNameRef}
               onSubmitEditing={this.props.onSubmitContactName}
               returnKeyType='next'
+              autoFocus={this.props.autoFocus}
             />
           </Item>
 
@@ -57,8 +58,8 @@ class ContactDetails extends Component<Props> {
               style={styles.input}
               onChangeText={this.props.onUsernameChange}
               autoCapitalize='words'
-              returnKeyType={this.props.returnKeyType}
               getRef={this.props.usernameRef}
+              onSubmitEditing={this.props.onSubmitUsername}
             />
           </Item>
           <CustomText
