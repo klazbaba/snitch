@@ -1,7 +1,8 @@
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import React, { Component } from 'react';
 import { Root } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const SetupStack = createStackNavigator(
   {
@@ -17,13 +18,28 @@ const SetupStack = createStackNavigator(
   }
 );
 
-const AppRoute = createAppContainer(SetupStack);
+const MainStack = createStackNavigator({
+  HomeScreen: {
+    getScreen: () => require('./screens/homeScreen').default
+  }
+});
+
+const AppRoute = createSwitchNavigator({
+  SetupStack,
+  MainStack
+});
+const Route = createAppContainer(AppRoute);
 
 export default class Routes extends Component {
+  constructor(props) {
+    super(props);
+    AsyncStorage.getItem('contactDetails').then(ContactDetails => console.warn(ContactDetails));
+  }
+
   render() {
     return (
       <Root>
-        <AppRoute />
+        <Route />
       </Root>
     );
   }
