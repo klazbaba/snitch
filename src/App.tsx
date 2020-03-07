@@ -1,34 +1,20 @@
-import { createAppContainer, createSwitchNavigator } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
 import { Root } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
+import { createStackNavigator } from '@react-navigation/stack';
 
-const SetupStack = createStackNavigator(
-  {
-    WelcomeScreen: {
-      getScreen: () => require('./screens/welcomeScreen').default
-    },
-    SetupScreen: {
-      getScreen: () => require('./screens/setupScreen').default
-    }
-  },
-  {
-    headerMode: 'none'
-  }
-);
+import WelcomeScreen from './screens/welcomeScreen';
+import SetupScreen from './screens/setupScreen';
 
-const MainStack = createStackNavigator({
-  HomeScreen: {
-    getScreen: () => require('./screens/homeScreen').default
-  }
-});
+const SetupStack = createStackNavigator();
 
-const AppRoute = createSwitchNavigator({
-  SetupStack,
-  MainStack
-});
-const Route = createAppContainer(AppRoute);
+// const AppRoute = createSwitchNavigator({
+//   SetupStack,
+//   MainStack
+// });
+// const Route = createAppContainer(AppRoute);
 
 export default class Routes extends Component {
   constructor(props) {
@@ -39,7 +25,13 @@ export default class Routes extends Component {
   render() {
     return (
       <Root>
-        <Route />
+        <NavigationContainer>
+          <SetupStack.Navigator headerMode='none'>
+            <SetupStack.Screen name='WelcomeScreen' component={WelcomeScreen} />
+            <SetupStack.Screen name='SetupScreen' component={SetupScreen} />
+          </SetupStack.Navigator>
+          {/* <Route /> */}
+        </NavigationContainer>
       </Root>
     );
   }
