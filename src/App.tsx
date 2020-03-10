@@ -7,30 +7,52 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import WelcomeScreen from './screens/welcomeScreen';
 import SetupScreen from './screens/setupScreen';
+import HomeScreen from './screens/homeScreen';
 
 const SetupStack = createStackNavigator();
+const MainStack = createStackNavigator();
 
-// const AppRoute = createSwitchNavigator({
-//   SetupStack,
-//   MainStack
-// });
-// const Route = createAppContainer(AppRoute);
+interface State {
+  initialRender: boolean;
+  firstTimer: boolean;
+}
 
-export default class Routes extends Component {
+interface Props {}
+
+export default class Routes extends Component<Props, State> {
+  firstTimer: boolean;
+
   constructor(props) {
     super(props);
-    AsyncStorage.getItem('contactDetails').then(ContactDetails => console.warn(ContactDetails));
+    this.state = {
+      initialRender: true,
+      firstTimer: false
+    };
   }
 
+  componentDidMount = async () => {
+    const contactDetails = await AsyncStorage.getItem('contactDetails');
+    this.setState({ firstTimer: Boolean(contactDetails), initialRender: false });
+    console.warn(Boolean(contactDetails));
+  };
+
   render() {
+    const { initialRender, firstTimer } = this.state;
+    if (initialRender) return null;
+
     return (
       <Root>
         <NavigationContainer>
-          <SetupStack.Navigator headerMode='none'>
-            <SetupStack.Screen name='WelcomeScreen' component={WelcomeScreen} />
-            <SetupStack.Screen name='SetupScreen' component={SetupScreen} />
-          </SetupStack.Navigator>
-          {/* <Route /> */}
+          {!firstTimer ? (
+            <SetupStack.Navigator headerMode='none'>
+              <SetupStack.Screen name='WelcomeScreen' component={WelcomeScreen} />
+              <SetupStack.Screen name='SetupScreen' component={SetupScreen} />
+            </SetupStack.Navigator>
+          ) : (
+            <MainStack.Navigator>
+              <MainStack.Screen name='HomeScreen' component={HomeScreen} />
+            </MainStack.Navigator>
+          )}
         </NavigationContainer>
       </Root>
     );
