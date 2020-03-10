@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { Component } from 'react';
-import { Root } from 'native-base';
+import { Root, Icon } from 'native-base';
 import AsyncStorage from '@react-native-community/async-storage';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -33,7 +33,6 @@ export default class Routes extends Component<Props, State> {
   componentDidMount = async () => {
     const contactDetails = await AsyncStorage.getItem('contactDetails');
     this.setState({ firstTimer: Boolean(contactDetails), initialRender: false });
-    console.warn(Boolean(contactDetails));
   };
 
   render() {
@@ -50,7 +49,13 @@ export default class Routes extends Component<Props, State> {
             </SetupStack.Navigator>
           ) : (
             <MainStack.Navigator>
-              <MainStack.Screen name='HomeScreen' component={HomeScreen} />
+              <MainStack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
+                options={{
+                  header: () => <Icon name='menu' style={{ marginLeft: 16, marginTop: 16 }} />
+                }}
+              />
             </MainStack.Navigator>
           )}
         </NavigationContainer>
