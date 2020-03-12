@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 
 import { styles } from './styles';
@@ -16,7 +16,7 @@ export default class WelcomeScreen extends Component<Props> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.textContainer}>
           <CustomText text={'Hello, welcome to Snitch.'} style={styles.title} />
           <CustomText
@@ -48,7 +48,7 @@ export default class WelcomeScreen extends Component<Props> {
             fillRule='evenodd'
           />
         </Svg>
-      </View>
+      </SafeAreaView>
     );
   }
 }
