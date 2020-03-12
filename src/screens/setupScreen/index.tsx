@@ -95,7 +95,7 @@ export default class SetupScreen extends Component<Props> {
   validateEmail = (emails: Array<string>) => {
     const result = emails.map((email: string, index: number) => {
       const isValid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
-        email
+        email.toLowerCase()
       );
       if (!isValid) return index;
     });
@@ -158,17 +158,17 @@ export default class SetupScreen extends Component<Props> {
         'contactDetails',
         JSON.stringify({
           0: {
-            contactEmail: contactEmail[0],
+            contactEmail: contactEmail[0].toLowerCase(),
             contactName: contactName[0],
             username: username[0]
           },
           1: {
-            contactEmail: contactEmail[1],
+            contactEmail: contactEmail[1].toLowerCase(),
             contactName: contactName[1],
             username: username[1]
           },
           2: {
-            contactEmail: contactEmail[2],
+            contactEmail: contactEmail[2].toLowerCase(),
             contactName: contactName[2],
             username: username[2]
           }

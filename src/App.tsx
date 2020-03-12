@@ -14,35 +14,35 @@ const MainStack = createStackNavigator();
 
 interface State {
   initialRender: boolean;
-  firstTimer: boolean;
+  notFirstTime: boolean;
 }
 
 interface Props {}
 
 export default class Routes extends Component<Props, State> {
-  firstTimer: boolean;
+  notFirstTime: boolean;
 
   constructor(props) {
     super(props);
     this.state = {
       initialRender: true,
-      firstTimer: false
+      notFirstTime: false
     };
   }
 
   componentDidMount = async () => {
     const contactDetails = await AsyncStorage.getItem('contactDetails');
-    this.setState({ firstTimer: Boolean(contactDetails), initialRender: false });
+    this.setState({ notFirstTime: Boolean(contactDetails), initialRender: false });
   };
 
   render() {
-    const { initialRender, firstTimer } = this.state;
+    const { initialRender, notFirstTime } = this.state;
     if (initialRender) return null;
 
     return (
       <Root>
         <NavigationContainer>
-          {!firstTimer ? (
+          {!notFirstTime ? (
             <SetupStack.Navigator headerMode='none'>
               <SetupStack.Screen name='WelcomeScreen' component={WelcomeScreen} />
               <SetupStack.Screen name='SetupScreen' component={SetupScreen} />
