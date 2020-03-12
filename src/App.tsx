@@ -1,13 +1,13 @@
-import 'react-native-gesture-handler';
-import { NavigationContainer } from '@react-navigation/native';
-import React, { Component } from 'react';
-import { Root, Icon } from 'native-base';
-import AsyncStorage from '@react-native-community/async-storage';
-import { createStackNavigator } from '@react-navigation/stack';
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import React, { Component } from "react";
+import { Root, Icon } from "native-base";
+import AsyncStorage from "@react-native-community/async-storage";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import WelcomeScreen from './screens/welcomeScreen';
-import SetupScreen from './screens/setupScreen';
-import HomeScreen from './screens/homeScreen';
+import WelcomeScreen from "./screens/welcomeScreen";
+import SetupScreen from "./screens/setupScreen";
+import HomeScreen from "./screens/homeScreen";
 
 const SetupStack = createStackNavigator();
 const MainStack = createStackNavigator();
@@ -31,8 +31,11 @@ export default class Routes extends Component<Props, State> {
   }
 
   componentDidMount = async () => {
-    const contactDetails = await AsyncStorage.getItem('contactDetails');
-    this.setState({ notFirstTime: Boolean(contactDetails), initialRender: false });
+    const contactDetails = await AsyncStorage.getItem("contactDetails");
+    this.setState({
+      notFirstTime: Boolean(contactDetails),
+      initialRender: false
+    });
   };
 
   render() {
@@ -42,18 +45,26 @@ export default class Routes extends Component<Props, State> {
     return (
       <Root>
         <NavigationContainer>
-          {!notFirstTime ? (
-            <SetupStack.Navigator headerMode='none'>
-              <SetupStack.Screen name='WelcomeScreen' component={WelcomeScreen} />
-              <SetupStack.Screen name='SetupScreen' component={SetupScreen} />
+          {notFirstTime ? (
+            <SetupStack.Navigator headerMode="none">
+              <SetupStack.Screen
+                name="WelcomeScreen"
+                component={WelcomeScreen}
+              />
+              <SetupStack.Screen name="SetupScreen" component={SetupScreen} />
             </SetupStack.Navigator>
           ) : (
             <MainStack.Navigator>
               <MainStack.Screen
-                name='HomeScreen'
+                name="HomeScreen"
                 component={HomeScreen}
                 options={{
-                  header: () => <Icon name='menu' style={{ marginLeft: 16, marginTop: 16 }} />
+                  header: () => (
+                    <Icon
+                      name="menu"
+                      style={{ marginLeft: 16, marginTop: 16 }}
+                    />
+                  )
                 }}
               />
             </MainStack.Navigator>
