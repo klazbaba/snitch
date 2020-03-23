@@ -106,6 +106,7 @@ export default class SetupScreen extends Component<Props> {
     const contactNameError = this.validateName(contactName);
     const emailError = this.validateEmail(contactEmail);
     const usernameError = this.validateName(username);
+    const { popToTop } = this.props.navigation;
 
     // took the callback approach because state updates were lagging behind
     if (contactNameError[0] === 0 || contactNameError[0] === undefined)
@@ -241,6 +242,7 @@ export default class SetupScreen extends Component<Props> {
                                                               })
                                                             );
                                                             toggleIsFirstTime();
+                                                            popToTop();
                                                           }
                                                         }
                                                       );

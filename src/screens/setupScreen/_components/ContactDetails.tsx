@@ -20,6 +20,7 @@ interface Props extends ViewProperties {
   usernameRef: (username: TextInput) => void;
   onSubmitUsername?: any;
   autoFocus?: boolean;
+  blurOnSubmit?: boolean;
 }
 
 class ContactDetails extends Component<Props> {
@@ -36,6 +37,7 @@ class ContactDetails extends Component<Props> {
               onSubmitEditing={this.props.onSubmitContactName}
               returnKeyType="next"
               autoFocus={this.props.autoFocus}
+              blurOnSubmit={false}
             />
           </Item>
 
@@ -49,6 +51,7 @@ class ContactDetails extends Component<Props> {
               getRef={this.props.emailRef}
               returnKeyType="next"
               onSubmitEditing={this.props.onSubmitContactEmail}
+              blurOnSubmit={false}
             />
           </Item>
 

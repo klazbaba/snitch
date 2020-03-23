@@ -18,10 +18,7 @@ interface State {
 
 interface Props {}
 
-export const NavigationContext = createContext({
-  isFirstTime: false,
-  toggleIsFirstTime: () => {}
-});
+export const NavigationContext = createContext();
 
 export default class Routes extends Component<Props, State> {
   notFirstTime: boolean;
@@ -53,7 +50,10 @@ export default class Routes extends Component<Props, State> {
           <NavigationContext.Provider
             value={{
               isFirstTime: true,
-              toggleIsFirstTime: () => (this.context = false)
+              toggleIsFirstTime: () => {
+                this.context = false;
+                this.setState({ notFirstTime: true });
+              }
             }}
           >
             <AppStack.Navigator headerMode="none">
