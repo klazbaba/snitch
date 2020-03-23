@@ -1,6 +1,6 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
-import React, { Component } from "react";
+import React, { Component, createContext } from "react";
 import { Root, Icon } from "native-base";
 import AsyncStorage from "@react-native-community/async-storage";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -9,8 +9,7 @@ import WelcomeScreen from "./screens/welcomeScreen";
 import SetupScreen from "./screens/setupScreen";
 import HomeScreen from "./screens/homeScreen";
 
-const SetupStack = createStackNavigator();
-const MainStack = createStackNavigator();
+const AppStack = createStackNavigator();
 
 interface State {
   initialRender: boolean;
@@ -19,8 +18,14 @@ interface State {
 
 interface Props {}
 
+export const NavigationContext = createContext({
+  isFirstTime: false,
+  toggleIsFirstTime: () => {}
+});
+
 export default class Routes extends Component<Props, State> {
   notFirstTime: boolean;
+  static contextType = NavigationContext;
 
   constructor(props) {
     super(props);
@@ -45,30 +50,39 @@ export default class Routes extends Component<Props, State> {
     return (
       <Root>
         <NavigationContainer>
-          {notFirstTime ? (
-            <SetupStack.Navigator headerMode="none">
-              <SetupStack.Screen
-                name="WelcomeScreen"
-                component={WelcomeScreen}
-              />
-              <SetupStack.Screen name="SetupScreen" component={SetupScreen} />
-            </SetupStack.Navigator>
-          ) : (
-            <MainStack.Navigator>
-              <MainStack.Screen
-                name="HomeScreen"
-                component={HomeScreen}
-                options={{
-                  header: () => (
-                    <Icon
-                      name="menu"
-                      style={{ marginLeft: 16, marginTop: 16 }}
-                    />
-                  )
-                }}
-              />
-            </MainStack.Navigator>
-          )}
+          <NavigationContext.Provider
+            value={{
+              isFirstTime: true,
+              toggleIsFirstTime: () => (this.context = false)
+            }}
+          >
+            <AppStack.Navigator headerMode="none">
+              {!notFirstTime ? (
+                <>
+                  <AppStack.Screen
+                    name="WelcomeScreen"
+                    component={WelcomeScreen}
+                  />
+                  <AppStack.Screen name="SetupScreen" component={SetupScreen} />
+                </>
+              ) : (
+                <>
+                  <AppStack.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{
+                      header: () => (
+                        <Icon
+                          name="menu"
+                          style={{ marginLeft: 16, marginTop: 16 }}
+                        />
+                      )
+                    }}
+                  />
+                </>
+              )}
+            </AppStack.Navigator>
+          </NavigationContext.Provider>
         </NavigationContainer>
       </Root>
     );

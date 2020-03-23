@@ -1,15 +1,15 @@
-import React from 'react';
-import { Button } from 'native-base';
-import { StyleSheet } from 'react-native';
+import React from "react";
+import { Button } from "native-base";
+import { StyleSheet } from "react-native";
 
-import CustomText from './customText';
-import { colors } from '../colors';
+import CustomText from "./customText";
+import { colors } from "../colors";
 
 interface Props {
   text: string;
   style?: object;
   textStyle?: object;
-  onPress: () => void;
+  onPress: any;
 }
 
 export default function CustomButton(props: Props) {
@@ -22,7 +22,7 @@ export default function CustomButton(props: Props) {
 
 const styles = StyleSheet.create({
   wrapper: {
-    justifyContent: 'center',
+    justifyContent: "center",
     backgroundColor: colors.brown,
     borderRadius: 8
   },

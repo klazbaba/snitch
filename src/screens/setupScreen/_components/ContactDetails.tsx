@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { StyleSheet, Animated, ViewProperties, TextInput } from 'react-native';
-import { Form, Item, Input, Label } from 'native-base';
+import React, { Component } from "react";
+import { StyleSheet, Animated, ViewProperties, TextInput } from "react-native";
+import { Form, Item, Input, Label } from "native-base";
 
-import { colors } from '../../colors';
-import CustomText from '../../_components/customText';
+import { colors } from "../../colors";
+import CustomText from "../../_components/customText";
 
 interface Props extends ViewProperties {
   style?: object;
@@ -15,10 +15,10 @@ interface Props extends ViewProperties {
   usernameError: boolean;
   onSubmitContactName: () => void;
   emailRef: (email: TextInput) => void;
-  returnKeyType?: 'default';
+  returnKeyType?: "default";
   onSubmitContactEmail: () => void;
   usernameRef: (username: TextInput) => void;
-  onSubmitUsername?: () => void;
+  onSubmitUsername?: any;
   autoFocus?: boolean;
 }
 
@@ -32,9 +32,9 @@ class ContactDetails extends Component<Props> {
             <Input
               style={styles.input}
               onChangeText={this.props.onContactNameChange}
-              autoCapitalize='words'
+              autoCapitalize="words"
               onSubmitEditing={this.props.onSubmitContactName}
-              returnKeyType='next'
+              returnKeyType="next"
               autoFocus={this.props.autoFocus}
             />
           </Item>
@@ -44,10 +44,10 @@ class ContactDetails extends Component<Props> {
             <Input
               style={styles.input}
               onChangeText={this.props.onContactEmailChange}
-              keyboardType='email-address'
-              autoCapitalize='none'
+              keyboardType="email-address"
+              autoCapitalize="none"
               getRef={this.props.emailRef}
-              returnKeyType='next'
+              returnKeyType="next"
               onSubmitEditing={this.props.onSubmitContactEmail}
             />
           </Item>
@@ -57,13 +57,13 @@ class ContactDetails extends Component<Props> {
             <Input
               style={styles.input}
               onChangeText={this.props.onUsernameChange}
-              autoCapitalize='words'
+              autoCapitalize="words"
               getRef={this.props.usernameRef}
               onSubmitEditing={this.props.onSubmitUsername}
             />
           </Item>
           <CustomText
-            text={'Enter a name this person recognizes you with'}
+            text={"Enter a name this person recognizes you with"}
             style={styles.underneathText}
           />
         </Form>
