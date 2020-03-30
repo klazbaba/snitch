@@ -18,7 +18,7 @@ interface State {
 
 interface Props {}
 
-export const NavigationContext = createContext();
+export const NavigationContext = createContext(null);
 
 export default class Routes extends Component<Props, State> {
   notFirstTime: boolean;

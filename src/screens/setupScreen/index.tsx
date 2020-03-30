@@ -18,7 +18,9 @@ import { colors } from "../colors";
 import { constants } from "../../constants";
 import { NavigationContext } from "../../App";
 
-interface Props {}
+interface Props {
+  navigation: any;
+}
 
 interface State {
   numberOfContactShown: number;
