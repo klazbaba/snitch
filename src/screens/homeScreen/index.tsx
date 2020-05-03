@@ -32,7 +32,6 @@ export default class HomeScreen extends Component<Props> {
 
   renderContacts = () => {
     const { contacts } = this.state;
-    console.warn(contacts);
 
     return contacts.map((contactDetails: { contactEmail; contactName }) => (
       <View>

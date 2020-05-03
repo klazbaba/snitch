@@ -24,7 +24,7 @@ export default class WelcomeScreen extends Component<Props> {
             style={styles.subTitle}
           />
           <CustomButton
-            text="Get Started"
+            label="Get Started"
             style={styles.button}
             textStyle={styles.buttonText}
             onPress={this.gotoSetup}
