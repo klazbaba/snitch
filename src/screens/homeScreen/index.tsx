@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { SafeAreaView, Modal, View, ScrollView } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
+import { Button, Icon } from "native-base";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -12,16 +13,32 @@ interface Props {
 
 interface State {
   showModal: boolean;
+  contacts: [];
 }
 
 export default class HomeScreen extends Component<Props> {
   state: State = {
     showModal: false,
+    contacts: [],
   };
 
   handleContactView = async (): Promise<void> => {
-    const contacts = await AsyncStorage.getItem("contactDetails");
-    console.warn(JSON.stringify(contacts, null, 10));
+    let contacts: string | object = await AsyncStorage.getItem(
+      "contactDetails"
+    );
+    contacts = JSON.parse(contacts);
+    this.setState({ contacts: Object.values(contacts), showModal: true });
+  };
+
+  renderContacts = () => {
+    const { contacts } = this.state;
+    console.warn(contacts);
+
+    return contacts.map((contactDetails: { contactEmail; contactName }) => (
+      <View>
+        <CustomText text={contactDetails.contactName} />
+      </View>
+    ));
   };
 
   render() {
@@ -34,13 +51,21 @@ export default class HomeScreen extends Component<Props> {
           <CustomButton label="Send Distress Mail" onPress={() => null} />
           <CustomButton
             label="View Contacts"
-            onPress={() => this.setState({ showModal: true })}
+            onPress={this.handleContactView}
             style={styles.contactsButton}
           />
 
           <Modal transparent visible={showModal}>
             <ScrollView contentContainerStyle={styles.modalContent}>
-              <CustomText text="Shuperu" />
+              <Button
+                icon
+                transparent
+                style={{ width: 50 }}
+                onPress={() => this.setState({ showModal: false })}
+              >
+                <Icon name="arrow-back" />
+              </Button>
+              {this.renderContacts()}
             </ScrollView>
           </Modal>
         </View>
