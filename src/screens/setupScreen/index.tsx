@@ -5,14 +5,14 @@ import {
   Animated,
   Dimensions,
   KeyboardAvoidingView,
-  ScaledSize
+  ScaledSize,
 } from "react-native";
 import { Fab, Toast } from "native-base";
 import AsyncStorage from "@react-native-community/async-storage";
 
 import { styles } from "./styles";
 import ContactDetails from "./_components/ContactDetails";
-import CustomText from "../_components/customText";
+import CustomText from "../_components/CustomText";
 import CustomButton from "../_components/CustomButton";
 import { colors } from "../colors";
 import { constants } from "../../constants";
@@ -62,13 +62,13 @@ export default class SetupScreen extends Component<Props> {
     secondUsernameHasError: false,
     thirdContactNameHasError: false,
     thirdContactEmailHasError: false,
-    thirdUsernameHasError: false
+    thirdUsernameHasError: false,
   };
 
   animateUpward = (wrapper: Animated.Value) => {
     Animated.timing(wrapper, {
       toValue: 0,
-      duration: wrapper === secondWrapper ? 1000 : 500
+      duration: wrapper === secondWrapper ? 1000 : 500,
     }).start();
   };
 
@@ -80,7 +80,7 @@ export default class SetupScreen extends Component<Props> {
     else if (numberOfContactShown > 2)
       Toast.show({
         text: "You have already added the maximum number of contacts!",
-        duration: constants.toastDuration
+        duration: constants.toastDuration,
       });
     this.setState({ numberOfContactShown: numberOfContactShown + 1 });
   };
@@ -118,7 +118,7 @@ export default class SetupScreen extends Component<Props> {
           if (contactNameError[1] === 1 || contactNameError[1] === undefined)
             this.setState(
               {
-                secondContactNameHasError: contactNameError[1] === 1
+                secondContactNameHasError: contactNameError[1] === 1,
               },
               () => {
                 if (
@@ -127,7 +127,7 @@ export default class SetupScreen extends Component<Props> {
                 )
                   this.setState(
                     {
-                      thirdContactNameHasError: contactNameError[2] === 2
+                      thirdContactNameHasError: contactNameError[2] === 2,
                     },
                     () => {
                       if (emailError[0] === 0 || emailError[0] === undefined)
@@ -141,7 +141,7 @@ export default class SetupScreen extends Component<Props> {
                               this.setState(
                                 {
                                   secondContactEmailHasError:
-                                    emailError[1] === 1
+                                    emailError[1] === 1,
                                 },
                                 () => {
                                   if (
@@ -151,7 +151,7 @@ export default class SetupScreen extends Component<Props> {
                                     this.setState(
                                       {
                                         thirdContactEmailHasError:
-                                          emailError[2] === 2
+                                          emailError[2] === 2,
                                       },
                                       () => {
                                         if (
@@ -161,7 +161,7 @@ export default class SetupScreen extends Component<Props> {
                                           this.setState(
                                             {
                                               firstUsernameHasError:
-                                                usernameError[0] === 0
+                                                usernameError[0] === 0,
                                             },
                                             () => {
                                               if (
@@ -171,7 +171,7 @@ export default class SetupScreen extends Component<Props> {
                                                 this.setState(
                                                   {
                                                     secondUsernameHasError:
-                                                      usernameError[1] === 1
+                                                      usernameError[1] === 1,
                                                   },
                                                   () => {
                                                     if (
@@ -183,7 +183,7 @@ export default class SetupScreen extends Component<Props> {
                                                         {
                                                           thirdUsernameHasError:
                                                             usernameError[2] ===
-                                                            2
+                                                            2,
                                                         },
                                                         async () => {
                                                           if (
@@ -213,8 +213,8 @@ export default class SetupScreen extends Component<Props> {
                                                                 constants.toastDuration,
                                                               style: {
                                                                 backgroundColor:
-                                                                  colors.red
-                                                              }
+                                                                  colors.red,
+                                                              },
                                                             });
                                                           } else {
                                                             await AsyncStorage.setItem(
@@ -225,22 +225,22 @@ export default class SetupScreen extends Component<Props> {
                                                                   contactName:
                                                                     contactName[0],
                                                                   username:
-                                                                    username[0]
+                                                                    username[0],
                                                                 },
                                                                 1: {
                                                                   contactEmail: contactEmail[1].toLowerCase(),
                                                                   contactName:
                                                                     contactName[1],
                                                                   username:
-                                                                    username[1]
+                                                                    username[1],
                                                                 },
                                                                 2: {
                                                                   contactEmail: contactEmail[2].toLowerCase(),
                                                                   contactName:
                                                                     contactName[2],
                                                                   username:
-                                                                    username[2]
-                                                                }
+                                                                    username[2],
+                                                                },
                                                               })
                                                             );
                                                             toggleIsFirstTime();
@@ -280,7 +280,7 @@ export default class SetupScreen extends Component<Props> {
       secondUsernameHasError,
       thirdContactEmailHasError,
       thirdContactNameHasError,
-      thirdUsernameHasError
+      thirdUsernameHasError,
     } = this.state;
 
     return (
@@ -302,39 +302,41 @@ export default class SetupScreen extends Component<Props> {
                   />
                   <ContactDetails
                     style={styles.firstContactDetails}
-                    onContactEmailChange={email =>
+                    onContactEmailChange={(email) =>
                       (contactEmail[0] = email.trim())
                     }
-                    onContactNameChange={name => (contactName[0] = name.trim())}
-                    onUsernameChange={name => (username[0] = name.trim())}
+                    onContactNameChange={(name) =>
+                      (contactName[0] = name.trim())
+                    }
+                    onUsernameChange={(name) => (username[0] = name.trim())}
                     contactNameError={firstContactNameHasError}
                     usernameError={firstUsernameHasError}
                     emailError={firstContactEmailHasError}
-                    emailRef={email => (firstContactEmailInput = email)}
+                    emailRef={(email) => (firstContactEmailInput = email)}
                     onSubmitContactName={() =>
                       firstContactEmailInput._root.focus()
                     }
                     onSubmitContactEmail={() =>
                       firstUsernameInput._root.focus()
                     }
-                    usernameRef={username => (firstUsernameInput = username)}
+                    usernameRef={(username) => (firstUsernameInput = username)}
                     autoFocus
                   />
 
                   {numberOfContactShown > 1 ? (
                     <ContactDetails
                       style={{ bottom: secondWrapper }}
-                      onContactEmailChange={email =>
+                      onContactEmailChange={(email) =>
                         (contactEmail[1] = email.trim())
                       }
-                      onContactNameChange={name =>
+                      onContactNameChange={(name) =>
                         (contactName[1] = name.trim())
                       }
-                      onUsernameChange={name => (username[1] = name.trim())}
+                      onUsernameChange={(name) => (username[1] = name.trim())}
                       contactNameError={secondContactNameHasError}
                       usernameError={secondUsernameHasError}
                       emailError={secondContactEmailHasError}
-                      emailRef={contactName =>
+                      emailRef={(contactName) =>
                         (secondContactEmail = contactName)
                       }
                       onSubmitContactName={() =>
@@ -343,7 +345,9 @@ export default class SetupScreen extends Component<Props> {
                       onSubmitContactEmail={() =>
                         secondUsernameInput._root.focus()
                       }
-                      usernameRef={username => (secondUsernameInput = username)}
+                      usernameRef={(username) =>
+                        (secondUsernameInput = username)
+                      }
                     />
                   ) : null}
 
@@ -351,17 +355,17 @@ export default class SetupScreen extends Component<Props> {
                     <>
                       <ContactDetails
                         style={{ bottom: thirdWrapper }}
-                        onContactEmailChange={email =>
+                        onContactEmailChange={(email) =>
                           (contactEmail[2] = email.trim())
                         }
-                        onContactNameChange={name =>
+                        onContactNameChange={(name) =>
                           (contactName[2] = name.trim())
                         }
-                        onUsernameChange={name => (username[2] = name.trim())}
+                        onUsernameChange={(name) => (username[2] = name.trim())}
                         contactNameError={thirdContactNameHasError}
                         usernameError={thirdUsernameHasError}
                         emailError={thirdContactEmailHasError}
-                        emailRef={contactName =>
+                        emailRef={(contactName) =>
                           (thirdContactEmailInput = contactName)
                         }
                         onSubmitContactName={() =>
@@ -370,7 +374,7 @@ export default class SetupScreen extends Component<Props> {
                         onSubmitContactEmail={() =>
                           thirdUsernameInput._root.focus()
                         }
-                        usernameRef={username =>
+                        usernameRef={(username) =>
                           (thirdUsernameInput = username)
                         }
                         onSubmitUsername={() =>

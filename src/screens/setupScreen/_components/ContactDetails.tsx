@@ -3,7 +3,7 @@ import { StyleSheet, Animated, ViewProperties, TextInput } from "react-native";
 import { Form, Item, Input, Label } from "native-base";
 
 import { colors } from "../../colors";
-import CustomText from "../../_components/customText";
+import CustomText from "../../_components/CustomText";
 
 interface Props extends ViewProperties {
   style?: object;
@@ -80,20 +80,20 @@ const styles = StyleSheet.create({
     elevation: 4,
     backgroundColor: colors.white,
     padding: 16,
-    marginVertical: 16
+    marginVertical: 16,
   },
   input: {
-    marginTop: 8
+    marginTop: 8,
   },
   underneathText: {
     fontSize: 12,
     marginLeft: 16,
-    color: colors.grey
+    color: colors.grey,
   },
   label: {
     fontSize: 14,
-    color: colors.brown
-  }
+    color: colors.brown,
+  },
 });
 
 export default ContactDetails;
