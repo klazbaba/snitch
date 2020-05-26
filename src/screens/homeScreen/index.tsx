@@ -24,7 +24,8 @@ interface Contact {
   username?: string;
 }
 
-const wrapperAnimationValue = new Animated.Value(0)
+const rotatingAnimationValue = new Animated.Value(0)
+const rollingAnimationValue = new Animated.Value(0)
 export default class HomeScreen extends Component<Props> {
   state: State = {
     showModal: false,
@@ -33,11 +34,20 @@ export default class HomeScreen extends Component<Props> {
   };
 
   rollWrapper = () => {
-    Animated.timing(wrapperAnimationValue, {
+    Animated.timing(rotatingAnimationValue, {
       toValue: 1,
       useNativeDriver: true,
       duration:5000,
       easing:Easing.linear
+    }).start()
+  }
+
+  moveWrapper = () => {
+    Animated.timing(rollingAnimationValue, {
+      toValue:500,
+      useNativeDriver:true,
+      duration: 5000,
+      easing: Easing.linear
     }).start()
   }
 
@@ -49,7 +59,7 @@ export default class HomeScreen extends Component<Props> {
     this.setState({
       contacts: Object.values(contacts),
       showModal: true,
-    }, () => this.setState({ currentContact: this.state.contacts[0]}, () => this.rollWrapper()));
+    }, () => this.setState({ currentContact: this.state.contacts[0]}));
   };
 
   renderContacts = () => {
@@ -70,9 +80,14 @@ export default class HomeScreen extends Component<Props> {
     );
   };
 
+  showNextContact = () => {
+    this.rollWrapper()
+    this.moveWrapper()
+  }
+
   render() {
     const { showModal } = this.state;
-    const rotate = wrapperAnimationValue.interpolate({inputRange: [0, 1], outputRange: ['0deg', '90deg']})
+    const rotate = rotatingAnimationValue.interpolate({inputRange: [0, 1], outputRange: ['0deg', '180deg']})
 
     return (
       <SafeAreaView style={styles.container}>
@@ -85,13 +100,14 @@ export default class HomeScreen extends Component<Props> {
           />
 
           <Modal transparent visible={showModal}>
+            <Animated.View style={{ translateX: rollingAnimationValue }}>
             <Animated.ScrollView contentContainerStyle={styles.modalContent} style={{ transform: [{ rotate }] }}>
               {this.renderContacts()}
               <View style={styles.navigationIconsWrapper}>
                 <Button style={{ backgroundColor: colors.brown }}>
                   <Icon name="arrowleft" type="AntDesign" />
                 </Button>
-                <Button style={{ backgroundColor: colors.brown }}>
+                <Button style={{ backgroundColor: colors.brown }} onPress={this.showNextContact}>
                   <Icon name="arrowright" type="AntDesign" />
                 </Button>
               </View>
@@ -102,7 +118,7 @@ export default class HomeScreen extends Component<Props> {
               >
                 <Icon name="close" type="AntDesign" />
               </Button>
-            </Animated.ScrollView>
+            </Animated.ScrollView></Animated.View>
           </Modal>
         </View>
       </SafeAreaView>
