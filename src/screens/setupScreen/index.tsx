@@ -382,7 +382,7 @@ export default class SetupScreen extends Component<Props> {
                         }
                       />
                       <CustomButton
-                        text="Save"
+                        label="Save"
                         onPress={() => this.saveContacts(toggleIsFirstTime)}
                         style={styles.button}
                       />
