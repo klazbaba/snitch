@@ -9,7 +9,7 @@ interface Props {
   label: string;
   style?: object;
   textStyle?: object;
-  onPress: any;
+  onPress: () => void;
 }
 
 export default function CustomButton(props: Props) {
