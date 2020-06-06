@@ -51,16 +51,7 @@ export default class HomeScreen extends Component<Props> {
     };
   }
 
-  rollWrapper = (from: Animated.Value, to: number) => {    
-    Animated.timing(from, {
-      toValue: to,
-      useNativeDriver: true,
-      duration: animationTime,
-      easing: Easing.linear,
-    }).start();
-  };
-
-  moveWrapper = (from: Animated.Value, to: number) => {
+  animate = (from: Animated.Value, to: number) => {    
     Animated.timing(from, {
       toValue: to,
       useNativeDriver: true,
@@ -130,8 +121,8 @@ export default class HomeScreen extends Component<Props> {
       "move"
     );
 
-    this.rollWrapper(rollValue.from, rollValue.to);
-    this.moveWrapper(moveValue.from, moveValue.to);
+    this.animate(rollValue.from, rollValue.to);
+    this.animate(moveValue.from, moveValue.to);
   };
 
   firstItem = () => {
