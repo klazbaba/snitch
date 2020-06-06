@@ -16,7 +16,10 @@ export const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginVertical: 32,
     borderRadius: 8,
-    marginTop: "50%",
+    position: "absolute",
+    left: 24,
+    right: 24,
+    top: "20%",
   },
   contactsWrapper: {
     marginVertical: 8,
