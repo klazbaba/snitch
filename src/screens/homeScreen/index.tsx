@@ -104,8 +104,8 @@ export default class HomeScreen extends Component<Props> {
     )
       return { from: rollingAnimationValue1, to: 1 };
     else if (
-      currentContact === 0 &&
-      nextContact === 1 &&
+      currentContact === 1 &&
+      nextContact === 2 &&
       animationType == "move"
     )
       return { from: movingAnimationValue1, to: 500 };
