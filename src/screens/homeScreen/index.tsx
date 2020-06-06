@@ -29,10 +29,8 @@ let movingAnimationValue0 = new Animated.Value(0);
 const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
-const rollingAnimationValue2 = new Animated.Value(0);
-const movingAnimationValue2 = new Animated.Value(0);
 
-const animationTime = 1000;
+const animationTime = 500;
 export default class HomeScreen extends Component<Props> {
   state: State;
 
@@ -109,6 +107,19 @@ export default class HomeScreen extends Component<Props> {
       animationType == "move"
     )
       return { from: movingAnimationValue1, to: 500 };
+
+    else if (
+      currentContact === 3 &&
+      nextContact === 2 &&
+      animationType === "roll"
+    )
+      return { from: rollingAnimationValue1, to: 0 };
+    else if (
+      currentContact === 3 &&
+      nextContact === 2 &&
+      animationType == "move"
+    )
+      return { from: movingAnimationValue1, to: 0 };
   };
 
   showContact = (currentContact: number, nextContact: number) => {
@@ -227,20 +238,10 @@ export default class HomeScreen extends Component<Props> {
   };
 
   thirdItem = () => {
-    const rotate = movingAnimationValue2.interpolate({
-      inputRange: [0, 1],
-      outputRange: ["0deg", "180deg"],
-    });
     const { contacts } = this.state;
 
     return (
-      <Animated.View
-        style={[
-          { translateX: rollingAnimationValue2, zIndex: 0 },
-          styles.modalContent,
-        ]}
-      >
-        <Animated.View style={{ transform: [{ rotate }] }}>
+        <View style={styles.modalContent}>
           <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
             <CustomText bold text={contacts[2]?.contactName} />
           </CustomText>
@@ -256,7 +257,7 @@ export default class HomeScreen extends Component<Props> {
           <View style={styles.navigationIconsWrapper}>
             <Button
               style={{ backgroundColor: colors.brown }}
-              onPress={() => this.showContact(2, 1)}
+              onPress={() => this.showContact(3, 2)}
             >
               <Icon name="arrowleft" type="AntDesign" />
             </Button>
@@ -273,8 +274,7 @@ export default class HomeScreen extends Component<Props> {
           >
             <Icon name="close" type="AntDesign" />
           </Button>
-        </Animated.View>
-      </Animated.View>
+        </View>
     );
   };
 
