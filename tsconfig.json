@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "es6",
+    "target": "ESNext",
+    "sourceMap": true,
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "declaration": false,
+    "allowSyntheticDefaultImports": true
+  }
+}

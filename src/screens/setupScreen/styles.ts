@@ -1,6 +1,6 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet, Platform } from "react-native";
 
-import { colors } from '../colors';
+import { colors } from "../colors";
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,10 +9,14 @@ export const styles = StyleSheet.create({
   },
   plusIcon: {
     fontSize: 48,
-    lineHeight: Platform.OS === 'ios' ? 0 : null
+    ...Platform.select({
+      ios: {
+        lineHeight: 0
+      }
+    })
   },
   fab: {
-    justifyContent: 'center',
+    justifyContent: "center",
     backgroundColor: colors.orange
   },
   otherContacts: {
@@ -25,11 +29,8 @@ export const styles = StyleSheet.create({
   button: {
     margin: 24
   },
-  indicator: {
-    position: 'absolute',
-    top: '50%',
-    bottom: '50%',
-    left: '50%',
-    right: '50%'
+  title: {
+    fontSize: 18,
+    marginTop: 8
   }
 });

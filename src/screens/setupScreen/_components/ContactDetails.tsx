@@ -1,9 +1,9 @@
-import React, { Component, RefObject } from 'react';
-import { StyleSheet, Animated, ViewProperties, TextInput } from 'react-native';
-import { Form, Item, Input, Label } from 'native-base';
+import React, { Component } from "react";
+import { StyleSheet, Animated, ViewProperties, TextInput } from "react-native";
+import { Form, Item, Input, Label } from "native-base";
 
-import { colors } from '../../colors';
-import CustomText from '../../_components/customText';
+import { colors } from "../../colors";
+import CustomText from "../../_components/CustomText";
 
 interface Props extends ViewProperties {
   style?: object;
@@ -14,11 +14,13 @@ interface Props extends ViewProperties {
   emailError: boolean;
   usernameError: boolean;
   onSubmitContactName: () => void;
-  contactNameRef: RefObject<TextInput>;
   emailRef: (email: TextInput) => void;
-  returnKeyType?: 'done';
+  returnKeyType?: "default";
   onSubmitContactEmail: () => void;
   usernameRef: (username: TextInput) => void;
+  onSubmitUsername?: any;
+  autoFocus?: boolean;
+  blurOnSubmit?: boolean;
 }
 
 class ContactDetails extends Component<Props> {
@@ -31,10 +33,11 @@ class ContactDetails extends Component<Props> {
             <Input
               style={styles.input}
               onChangeText={this.props.onContactNameChange}
-              autoCapitalize='words'
-              ref={this.props.contactNameRef}
+              autoCapitalize="words"
               onSubmitEditing={this.props.onSubmitContactName}
-              returnKeyType='next'
+              returnKeyType="next"
+              autoFocus={this.props.autoFocus}
+              blurOnSubmit={false}
             />
           </Item>
 
@@ -43,11 +46,12 @@ class ContactDetails extends Component<Props> {
             <Input
               style={styles.input}
               onChangeText={this.props.onContactEmailChange}
-              keyboardType='email-address'
-              autoCapitalize='none'
+              keyboardType="email-address"
+              autoCapitalize="none"
               getRef={this.props.emailRef}
-              returnKeyType='next'
+              returnKeyType="next"
               onSubmitEditing={this.props.onSubmitContactEmail}
+              blurOnSubmit={false}
             />
           </Item>
 
@@ -56,13 +60,13 @@ class ContactDetails extends Component<Props> {
             <Input
               style={styles.input}
               onChangeText={this.props.onUsernameChange}
-              autoCapitalize='words'
-              returnKeyType={this.props.returnKeyType}
+              autoCapitalize="words"
               getRef={this.props.usernameRef}
+              onSubmitEditing={this.props.onSubmitUsername}
             />
           </Item>
           <CustomText
-            text={'Enter a name this person recognizes you with'}
+            text={"Enter a name this person recognizes you with"}
             style={styles.underneathText}
           />
         </Form>
@@ -76,20 +80,20 @@ const styles = StyleSheet.create({
     elevation: 4,
     backgroundColor: colors.white,
     padding: 16,
-    marginVertical: 16
+    marginVertical: 16,
   },
   input: {
-    marginTop: 8
+    marginTop: 8,
   },
   underneathText: {
     fontSize: 12,
     marginLeft: 16,
-    color: colors.grey
+    color: colors.grey,
   },
   label: {
     fontSize: 14,
-    color: colors.brown
-  }
+    color: colors.brown,
+  },
 });
 
 export default ContactDetails;

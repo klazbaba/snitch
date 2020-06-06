@@ -1,29 +1,89 @@
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-import React, { Component } from 'react';
-import { Root } from 'native-base';
+import "react-native-gesture-handler";
+import { NavigationContainer } from "@react-navigation/native";
+import React, { Component, createContext } from "react";
+import { Root, Icon } from "native-base";
+import AsyncStorage from "@react-native-community/async-storage";
+import { createStackNavigator } from "@react-navigation/stack";
 
-const SetupStack = createStackNavigator(
-  {
-    WelcomeScreen: {
-      getScreen: () => require('./screens/welcomeScreen').default
-    },
-    SetupScreen: {
-      getScreen: () => require('./screens/setupScreen').default
-    }
-  },
-  {
-    headerMode: 'none'
+import WelcomeScreen from "./screens/welcomeScreen";
+import SetupScreen from "./screens/setupScreen";
+import HomeScreen from "./screens/homeScreen";
+
+const AppStack = createStackNavigator();
+
+interface State {
+  initialRender: boolean;
+  notFirstTime: boolean;
+}
+
+interface Props {}
+
+export const NavigationContext = createContext(null);
+
+export default class Routes extends Component<Props, State> {
+  notFirstTime: boolean;
+  static contextType = NavigationContext;
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialRender: true,
+      notFirstTime: false
+    };
   }
-);
 
-const AppRoute = createAppContainer(SetupStack);
+  componentDidMount = async () => {
+    const contactDetails = await AsyncStorage.getItem("contactDetails");
+    this.setState({
+      notFirstTime: Boolean(contactDetails),
+      initialRender: false
+    });
+  };
 
-export default class Routes extends Component {
   render() {
+    const { initialRender, notFirstTime } = this.state;
+    if (initialRender) return null;
+
     return (
       <Root>
-        <AppRoute />
+        <NavigationContainer>
+          <NavigationContext.Provider
+            value={{
+              isFirstTime: true,
+              toggleIsFirstTime: () => {
+                this.context = false;
+                this.setState({ notFirstTime: true });
+              }
+            }}
+          >
+            <AppStack.Navigator headerMode="none">
+              {!notFirstTime ? (
+                <>
+                  <AppStack.Screen
+                    name="WelcomeScreen"
+                    component={WelcomeScreen}
+                  />
+                  <AppStack.Screen name="SetupScreen" component={SetupScreen} />
+                </>
+              ) : (
+                <>
+                  <AppStack.Screen
+                    name="HomeScreen"
+                    component={HomeScreen}
+                    options={{
+                      header: () => (
+                        <Icon
+                          name="menu"
+                          style={{ marginLeft: 16, marginTop: 16 }}
+                        />
+                      )
+                    }}
+                  />
+                </>
+              )}
+            </AppStack.Navigator>
+          </NavigationContext.Provider>
+        </NavigationContainer>
       </Root>
     );
   }
