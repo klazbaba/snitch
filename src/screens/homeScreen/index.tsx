@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { SafeAreaView, Modal, View, Animated, Easing } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -9,7 +10,7 @@ import CustomText from "../_components/CustomText";
 import { colors } from "../colors";
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<Record<string, object | undefined>, string>;
 }
 
 interface State {
@@ -318,7 +319,6 @@ export default class HomeScreen extends Component<Props> {
 
   render() {
     const { showModal } = this.state;
-    const val = new Animated.Value(0);
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>

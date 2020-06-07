@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
-import ContactDetails from "./_components/ContactDetails";
+import ContactDetails from "../_components/ContactDetails";
 import CustomText from "../_components/CustomText";
 import CustomButton from "../_components/CustomButton";
 import { colors } from "../colors";
@@ -286,7 +286,7 @@ export default class SetupScreen extends Component<Props> {
 
     return (
       <NavigationContext.Consumer>
-        {({ isFirstTime, toggleIsFirstTime }) => {
+        {({ toggleIsFirstTime }) => {
           return (
             <SafeAreaView style={{ flex: 1 }}>
               <ScrollView

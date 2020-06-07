@@ -1,7 +1,7 @@
 import "react-native-gesture-handler";
 import { NavigationContainer } from "@react-navigation/native";
 import React, { Component, createContext } from "react";
-import { Root, Icon } from "native-base";
+import { Root } from "native-base";
 import AsyncStorage from "@react-native-community/async-storage";
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -57,7 +57,7 @@ export default class Routes extends Component<Props, State> {
               },
             }}
           >
-            <AppStack.Navigator headerMode="none">
+            <AppStack.Navigator>
               {!notFirstTime ? (
                 <>
                   <AppStack.Screen
@@ -71,14 +71,7 @@ export default class Routes extends Component<Props, State> {
                   <AppStack.Screen
                     name="HomeScreen"
                     component={HomeScreen}
-                    options={{
-                      header: () => (
-                        <Icon
-                          name="menu"
-                          style={{ marginLeft: 16, marginTop: 16 }}
-                        />
-                      ),
-                    }}
+                    options={{ header: () => null }}
                   />
                   <AppStack.Screen
                     component={EditContactScreen}

@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { StyleSheet, Animated, ViewProperties, TextInput } from "react-native";
 import { Form, Item, Input, Label } from "native-base";
 
-import { colors } from "../../colors";
-import CustomText from "../../_components/CustomText";
+import { colors } from "../colors";
+import CustomText from "./CustomText";
 
 interface Props extends ViewProperties {
   style?: object;
@@ -21,6 +21,9 @@ interface Props extends ViewProperties {
   onSubmitUsername?: any;
   autoFocus?: boolean;
   blurOnSubmit?: boolean;
+  contactName?: string;
+  contactEmail?: string;
+  username?: string;
 }
 
 class ContactDetails extends Component<Props> {
@@ -38,6 +41,7 @@ class ContactDetails extends Component<Props> {
               returnKeyType="next"
               autoFocus={this.props.autoFocus}
               blurOnSubmit={false}
+              value={this.props.contactName}
             />
           </Item>
 
@@ -52,6 +56,7 @@ class ContactDetails extends Component<Props> {
               returnKeyType="next"
               onSubmitEditing={this.props.onSubmitContactEmail}
               blurOnSubmit={false}
+              value={this.props.contactEmail}
             />
           </Item>
 
@@ -63,6 +68,7 @@ class ContactDetails extends Component<Props> {
               autoCapitalize="words"
               getRef={this.props.usernameRef}
               onSubmitEditing={this.props.onSubmitUsername}
+              value={this.props.username}
             />
           </Item>
           <CustomText
