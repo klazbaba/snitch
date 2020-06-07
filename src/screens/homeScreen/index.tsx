@@ -11,10 +11,17 @@ import { colors } from "../colors";
 
 interface Props {
   navigation: StackNavigationProp<Record<string, object | undefined>, string>;
+  route: Route
+}
+
+interface Route {
+  params: {
+    showModal: boolean
+  }
 }
 
 interface State {
-  showModal: boolean;
+  // showModal: boolean;
   contacts: Array<Contact>;
 }
 
@@ -31,12 +38,15 @@ const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
 const animationTime = 500;
+let buttonPressedFromEditScreen = ''
+
 export default class HomeScreen extends Component<Props> {
   state: State;
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-
+    
+    props.navigation.setParams({showModal: false})
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
       this.setState({
@@ -46,7 +56,7 @@ export default class HomeScreen extends Component<Props> {
     });
 
     this.state = {
-      showModal: false,
+      // showModal: false,
       contacts: [],
     };
   }
@@ -124,9 +134,9 @@ export default class HomeScreen extends Component<Props> {
   };
 
   editContact = (contact: number) => {
-    const {navigate} = this.props.navigation
+    const {navigate, setParams} = this.props.navigation
     const {contacts} = this.state
-    this.setState({showModal: false})
+    setParams({showModal: false})
     navigate('EditContactScreen', {contact, details: contacts[contact]})
   }
 
@@ -136,6 +146,7 @@ export default class HomeScreen extends Component<Props> {
       outputRange: ["0deg", "180deg"],
     });
     const { contacts } = this.state;
+    const {navigation} = this.props
 
     return (
       <Animated.View
@@ -186,7 +197,7 @@ export default class HomeScreen extends Component<Props> {
 
           <Button
             style={styles.closeButton}
-            onPress={() => this.setState({ showModal: false })}
+            onPress={() => navigation.setParams({ showModal: false })}
           >
             <Icon name="close" type="AntDesign" />
           </Button>
@@ -201,6 +212,7 @@ export default class HomeScreen extends Component<Props> {
       outputRange: ["0deg", "180deg"],
     });
     const { contacts } = this.state;
+    const {navigation} = this.props
 
     return (
       <Animated.View
@@ -254,7 +266,7 @@ export default class HomeScreen extends Component<Props> {
 
           <Button
             style={styles.closeButton}
-            onPress={() => this.setState({ showModal: false })}
+            onPress={() => navigation.setParams({ showModal: false })}
           >
             <Icon name="close" type="AntDesign" />
           </Button>
@@ -265,6 +277,7 @@ export default class HomeScreen extends Component<Props> {
 
   thirdItem = () => {
     const { contacts } = this.state;
+    const {navigation} = this.props
 
     return (
       <View style={styles.modalContent}>
@@ -309,7 +322,7 @@ export default class HomeScreen extends Component<Props> {
 
         <Button
           style={styles.closeButton}
-          onPress={() => this.setState({ showModal: false })}
+          onPress={() => navigation.setParams({ showModal: false })}
         >
           <Icon name="close" type="AntDesign" />
         </Button>
@@ -318,18 +331,19 @@ export default class HomeScreen extends Component<Props> {
   };
 
   render() {
-    const { showModal } = this.state;
+    const {route: {params}, navigation} = this.props
+    
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
           <CustomButton label="Send Distress Mail" onPress={() => null} />
           <CustomButton
             label="View Contacts"
-            onPress={() => this.setState({ showModal: true })}
+            onPress={() => navigation.setParams({showModal: true})}
             style={styles.contactsButton}
           />
 
-          <Modal transparent visible={showModal}>
+          <Modal transparent visible={ params.showModal }>
             {this.firstItem()}
             {this.secondItem()}
             {this.thirdItem()}

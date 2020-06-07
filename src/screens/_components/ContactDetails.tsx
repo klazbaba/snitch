@@ -1,9 +1,18 @@
 import React, { Component } from "react";
-import { StyleSheet, Animated, ViewProperties, TextInput } from "react-native";
+import {
+  StyleSheet,
+  Animated,
+  ViewProperties,
+  TextInputProperties,
+} from "react-native";
 import { Form, Item, Input, Label } from "native-base";
 
 import { colors } from "../colors";
 import CustomText from "./CustomText";
+
+interface TextInputProp extends TextInputProperties {
+  _root?: { focus: () => void };
+}
 
 interface Props extends ViewProperties {
   style?: object;
@@ -14,10 +23,10 @@ interface Props extends ViewProperties {
   emailError: boolean;
   usernameError: boolean;
   onSubmitContactName: () => void;
-  emailRef: (email: TextInput) => void;
+  emailRef: (email: TextInputProp) => void;
   returnKeyType?: "default";
   onSubmitContactEmail: () => void;
-  usernameRef: (username: TextInput) => void;
+  usernameRef: (username: TextInputProp) => void;
   onSubmitUsername?: any;
   autoFocus?: boolean;
   blurOnSubmit?: boolean;
@@ -52,6 +61,7 @@ class ContactDetails extends Component<Props> {
               onChangeText={this.props.onContactEmailChange}
               keyboardType="email-address"
               autoCapitalize="none"
+              //@ts-ignore
               getRef={this.props.emailRef}
               returnKeyType="next"
               onSubmitEditing={this.props.onSubmitContactEmail}
@@ -66,6 +76,7 @@ class ContactDetails extends Component<Props> {
               style={styles.input}
               onChangeText={this.props.onUsernameChange}
               autoCapitalize="words"
+              //@ts-ignore
               getRef={this.props.usernameRef}
               onSubmitEditing={this.props.onSubmitUsername}
               value={this.props.username}
