@@ -39,4 +39,9 @@ export const styles = StyleSheet.create({
     width: 100,
     alignSelf: "center",
   },
+  pencil: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+  },
 });

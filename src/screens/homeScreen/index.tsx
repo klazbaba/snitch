@@ -29,7 +29,6 @@ let movingAnimationValue0 = new Animated.Value(0);
 const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
-
 const animationTime = 500;
 export default class HomeScreen extends Component<Props> {
   state: State;
@@ -51,7 +50,7 @@ export default class HomeScreen extends Component<Props> {
     };
   }
 
-  animate = (from: Animated.Value, to: number) => {    
+  animate = (from: Animated.Value, to: number) => {
     Animated.timing(from, {
       toValue: to,
       useNativeDriver: true,
@@ -71,7 +70,7 @@ export default class HomeScreen extends Component<Props> {
       currentContact === 0 &&
       nextContact === 1 &&
       animationType == "move"
-    ) 
+    )
       return { from: movingAnimationValue0, to: 500 };
     else if (
       currentContact === 1 &&
@@ -83,9 +82,8 @@ export default class HomeScreen extends Component<Props> {
       currentContact === 1 &&
       nextContact === 0 &&
       animationType === "move"
-    ) 
+    )
       return { from: movingAnimationValue0, to: 0 };
-
     else if (
       currentContact === 1 &&
       nextContact === 2 &&
@@ -98,7 +96,6 @@ export default class HomeScreen extends Component<Props> {
       animationType == "move"
     )
       return { from: movingAnimationValue1, to: 500 };
-
     else if (
       currentContact === 3 &&
       nextContact === 2 &&
@@ -125,6 +122,13 @@ export default class HomeScreen extends Component<Props> {
     this.animate(moveValue.from, moveValue.to);
   };
 
+  editContact = (contact: number) => {
+    const {navigate} = this.props.navigation
+    const {contacts} = this.state
+    this.setState({showModal: false})
+    navigate('EditContactScreen', {contact, details: contacts[contact]})
+  }
+
   firstItem = () => {
     const rotate = rollingAnimationValue0.interpolate({
       inputRange: [0, 1],
@@ -135,10 +139,25 @@ export default class HomeScreen extends Component<Props> {
     return (
       <Animated.View
         style={[
-          { transform: [{translateX: movingAnimationValue0}], zIndex: 2 },
+          { transform: [{ translateX: movingAnimationValue0 }], zIndex: 2 },
           styles.modalContent,
         ]}
       >
+        <Button 
+          style={styles.pencil} 
+          transparent 
+          onPress={() => this.editContact(0)}
+        >
+          <Icon
+            name="pencil"
+            type="EvilIcons"
+            style={{
+              fontSize: 32,
+              color: colors.orange,
+            }}
+          />
+        </Button>
+
         <Animated.View style={{ transform: [{ rotate }] }}>
           <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
             <CustomText bold text={contacts[0]?.contactName} />
@@ -185,10 +204,25 @@ export default class HomeScreen extends Component<Props> {
     return (
       <Animated.View
         style={[
-          { transform: [{translateX: movingAnimationValue1}], zIndex: 1 },
+          { transform: [{ translateX: movingAnimationValue1 }], zIndex: 1 },
           styles.modalContent,
         ]}
       >
+        <Button 
+          style={styles.pencil} 
+          transparent 
+          onPress={() => this.editContact(1)}
+        >
+          <Icon
+            name="pencil"
+            type="EvilIcons"
+            style={{
+              fontSize: 32,
+              color: colors.orange,
+            }}
+          />
+        </Button>
+
         <Animated.View style={{ transform: [{ rotate }] }}>
           <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
             <CustomText bold text={contacts[1]?.contactName} />
@@ -232,46 +266,59 @@ export default class HomeScreen extends Component<Props> {
     const { contacts } = this.state;
 
     return (
-        <View style={styles.modalContent}>
-          <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
-            <CustomText bold text={contacts[2]?.contactName} />
-          </CustomText>
+      <View style={styles.modalContent}>
+        <Button 
+          style={styles.pencil} 
+          transparent 
+          onPress={() => this.editContact(2)}
+        >
+          <Icon
+            name="pencil"
+            type="EvilIcons"
+            style={{
+              fontSize: 32,
+              color: colors.orange,
+            }}
+          />
+        </Button>
 
-          <CustomText text="Contact Email: " style={{ marginBottom: 8 }}>
-            <CustomText bold text={contacts[2]?.contactEmail} />
-          </CustomText>
+        <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
+          <CustomText bold text={contacts[2]?.contactName} />
+        </CustomText>
 
-          <CustomText text="Your Name: " style={{ marginBottom: 8 }}>
-            <CustomText bold text={contacts[2]?.username} />
-          </CustomText>
+        <CustomText text="Contact Email: " style={{ marginBottom: 8 }}>
+          <CustomText bold text={contacts[2]?.contactEmail} />
+        </CustomText>
 
-          <View style={styles.navigationIconsWrapper}>
-            <Button
-              style={{ backgroundColor: colors.brown }}
-              onPress={() => this.showContact(3, 2)}
-            >
-              <Icon name="arrowleft" type="AntDesign" />
-            </Button>
-            <Button
-              style={{ backgroundColor: colors.brown }}
-            >
-              <Icon name="arrowright" type="AntDesign" />
-            </Button>
-          </View>
+        <CustomText text="Your Name: " style={{ marginBottom: 8 }}>
+          <CustomText bold text={contacts[2]?.username} />
+        </CustomText>
 
+        <View style={styles.navigationIconsWrapper}>
           <Button
-            style={styles.closeButton}
-            onPress={() => this.setState({ showModal: false })}
+            style={{ backgroundColor: colors.brown }}
+            onPress={() => this.showContact(3, 2)}
           >
-            <Icon name="close" type="AntDesign" />
+            <Icon name="arrowleft" type="AntDesign" />
+          </Button>
+          <Button style={{ backgroundColor: colors.brown }}>
+            <Icon name="arrowright" type="AntDesign" />
           </Button>
         </View>
+
+        <Button
+          style={styles.closeButton}
+          onPress={() => this.setState({ showModal: false })}
+        >
+          <Icon name="close" type="AntDesign" />
+        </Button>
+      </View>
     );
   };
 
   render() {
     const { showModal } = this.state;
-    const val = new Animated.Value(0)
+    const val = new Animated.Value(0);
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>

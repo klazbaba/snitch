@@ -8,6 +8,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WelcomeScreen from "./screens/welcomeScreen";
 import SetupScreen from "./screens/setupScreen";
 import HomeScreen from "./screens/homeScreen";
+import EditContactScreen from "./screens/editContactScreen";
 
 const AppStack = createStackNavigator();
 
@@ -28,7 +29,7 @@ export default class Routes extends Component<Props, State> {
     super(props);
     this.state = {
       initialRender: true,
-      notFirstTime: false
+      notFirstTime: false,
     };
   }
 
@@ -36,7 +37,7 @@ export default class Routes extends Component<Props, State> {
     const contactDetails = await AsyncStorage.getItem("contactDetails");
     this.setState({
       notFirstTime: Boolean(contactDetails),
-      initialRender: false
+      initialRender: false,
     });
   };
 
@@ -53,7 +54,7 @@ export default class Routes extends Component<Props, State> {
               toggleIsFirstTime: () => {
                 this.context = false;
                 this.setState({ notFirstTime: true });
-              }
+              },
             }}
           >
             <AppStack.Navigator headerMode="none">
@@ -76,8 +77,12 @@ export default class Routes extends Component<Props, State> {
                           name="menu"
                           style={{ marginLeft: 16, marginTop: 16 }}
                         />
-                      )
+                      ),
                     }}
+                  />
+                  <AppStack.Screen
+                    component={EditContactScreen}
+                    name="EditContactScreen"
                   />
                 </>
               )}
