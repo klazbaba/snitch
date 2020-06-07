@@ -135,7 +135,7 @@ export default class HomeScreen extends Component<Props> {
     return (
       <Animated.View
         style={[
-          { translateX: movingAnimationValue0, zIndex: 2 },
+          { transform: [{translateX: movingAnimationValue0}], zIndex: 2 },
           styles.modalContent,
         ]}
       >
@@ -185,7 +185,7 @@ export default class HomeScreen extends Component<Props> {
     return (
       <Animated.View
         style={[
-          { translateX: movingAnimationValue1, zIndex: 1 },
+          { transform: [{translateX: movingAnimationValue1}], zIndex: 1 },
           styles.modalContent,
         ]}
       >
@@ -271,7 +271,7 @@ export default class HomeScreen extends Component<Props> {
 
   render() {
     const { showModal } = this.state;
-
+    const val = new Animated.Value(0)
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>

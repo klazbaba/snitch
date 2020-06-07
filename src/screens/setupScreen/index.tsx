@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { Fab, Toast } from "native-base";
 import AsyncStorage from "@react-native-community/async-storage";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
 import ContactDetails from "./_components/ContactDetails";
@@ -19,7 +20,7 @@ import { constants } from "../../constants";
 import { NavigationContext } from "../../App";
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<Record<string, object | undefined>, string>;
 }
 
 interface State {
