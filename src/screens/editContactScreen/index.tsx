@@ -107,6 +107,7 @@ export default class EditContactScreen extends Component<Props> {
             <CustomButton
               label="Save"
               style={[styles.button, { backgroundColor: colors.green }]}
+              onPress={() => {}}
             />
           </View>
         </ScrollView>

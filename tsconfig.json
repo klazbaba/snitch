@@ -7,6 +7,8 @@
     "moduleResolution": "node",
     "declaration": false,
     "allowSyntheticDefaultImports": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "rootDirs": ["./src", "__tests__"],
+    "skipLibCheck": true
   }
 }
