@@ -1,5 +1,5 @@
 {
-  "name": "Snitch",
+  "name": "snitch",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -37,8 +37,13 @@
     "@types/react-test-renderer": "^16.8.2",
     "babel-jest": "^24.9.0",
     "eslint": "^6.5.1",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": ">=4",
     "jest": "^24.9.0",
+    "lint-staged": ">=10",
     "metro-react-native-babel-preset": "^0.56.0",
+    "prettier": "2.0.5",
     "react-test-renderer": "16.9.0",
     "typescript": "^3.5.3"
   },
@@ -52,5 +57,13 @@
       "json",
       "node"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js, ts, tsx}": ["eslint --cache --fix", "prettier --write"]
   }
 }
