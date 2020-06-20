@@ -60,3 +60,6 @@ buck-out/
 
 #App Center
 appcenter-config.json
+
+#TypeScript
+dist
