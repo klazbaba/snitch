@@ -1,1 +1,1 @@
-tsc && lint-staged
+npx tsc && lint-staged
