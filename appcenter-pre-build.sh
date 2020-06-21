@@ -1,1 +1,1 @@
-yarn tsc && lint-staged
+yarn tsc && yarn lint-staged
