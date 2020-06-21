@@ -9,6 +9,8 @@
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist",
     "rootDirs": ["./src", "__tests__"],
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": { "*": ["src/*"], "tests": ["tests/*"] }
   }
 }
