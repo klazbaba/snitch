@@ -6,6 +6,9 @@
     "jsx": "react-native",
     "moduleResolution": "node",
     "declaration": false,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "rootDirs": ["./src", "__tests__"],
+    "skipLibCheck": true
   }
 }

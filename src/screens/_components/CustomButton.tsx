@@ -15,7 +15,11 @@ interface Props {
 export default function CustomButton(props: Props) {
   return (
     <Button style={[styles.wrapper, props.style]} onPress={props.onPress}>
-      <CustomText text={props.label} style={[styles.text, props.textStyle]} />
+      <CustomText
+        text={props.label}
+        style={[styles.text, props.textStyle]}
+        bold
+      />
     </Button>
   );
 }

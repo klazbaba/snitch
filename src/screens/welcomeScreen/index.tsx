@@ -1,7 +1,7 @@
-
-import React, { Component } from 'react';
-import { View, SafeAreaView } from 'react-native';
-import Svg, { Path } from 'react-native-svg';
+import React, { Component } from "react";
+import { View, SafeAreaView } from "react-native";
+import Svg, { Path } from "react-native-svg";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
 import CustomText from "../_components/CustomText";
@@ -9,12 +9,10 @@ import CustomButton from "../_components/CustomButton";
 import { colors } from "../colors";
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<Record<string, object | undefined>, string>;
 }
 
 export default class WelcomeScreen extends Component<Props> {
-  gotoSetup = () => this.props.navigation.navigate("SetupScreen");
-
   render() {
     return (
       <SafeAreaView style={styles.container}>
@@ -28,7 +26,7 @@ export default class WelcomeScreen extends Component<Props> {
             label="Get Started"
             style={styles.button}
             textStyle={styles.buttonText}
-            onPress={this.gotoSetup}
+            onPress={() => this.props.navigation.navigate("SetupScreen")}
           />
         </View>
 

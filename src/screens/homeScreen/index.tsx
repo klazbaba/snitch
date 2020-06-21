@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { SafeAreaView, Modal, View, Animated, Easing } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
+import { StackNavigationProp } from "@react-navigation/stack";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -9,11 +10,18 @@ import CustomText from "../_components/CustomText";
 import { colors } from "../colors";
 
 interface Props {
-  navigation: any;
+  navigation: StackNavigationProp<Record<string, object | undefined>, string>;
+  route: Route
+}
+
+interface Route {
+  params: {
+    showModal: boolean
+  }
 }
 
 interface State {
-  showModal: boolean;
+  // showModal: boolean;
   contacts: Array<Contact>;
 }
 
@@ -29,14 +37,16 @@ let movingAnimationValue0 = new Animated.Value(0);
 const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
-
 const animationTime = 500;
+let buttonPressedFromEditScreen = ''
+
 export default class HomeScreen extends Component<Props> {
   state: State;
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
-
+    
+    props.navigation.setParams({showModal: false})
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
       this.setState({
@@ -46,12 +56,12 @@ export default class HomeScreen extends Component<Props> {
     });
 
     this.state = {
-      showModal: false,
+      // showModal: false,
       contacts: [],
     };
   }
 
-  animate = (from: Animated.Value, to: number) => {    
+  animate = (from: Animated.Value, to: number) => {
     Animated.timing(from, {
       toValue: to,
       useNativeDriver: true,
@@ -71,7 +81,7 @@ export default class HomeScreen extends Component<Props> {
       currentContact === 0 &&
       nextContact === 1 &&
       animationType == "move"
-    ) 
+    )
       return { from: movingAnimationValue0, to: 500 };
     else if (
       currentContact === 1 &&
@@ -83,9 +93,8 @@ export default class HomeScreen extends Component<Props> {
       currentContact === 1 &&
       nextContact === 0 &&
       animationType === "move"
-    ) 
+    )
       return { from: movingAnimationValue0, to: 0 };
-
     else if (
       currentContact === 1 &&
       nextContact === 2 &&
@@ -98,7 +107,6 @@ export default class HomeScreen extends Component<Props> {
       animationType == "move"
     )
       return { from: movingAnimationValue1, to: 500 };
-
     else if (
       currentContact === 3 &&
       nextContact === 2 &&
@@ -125,20 +133,43 @@ export default class HomeScreen extends Component<Props> {
     this.animate(moveValue.from, moveValue.to);
   };
 
+  editContact = (contact: number) => {
+    const {navigate, setParams} = this.props.navigation
+    const {contacts} = this.state
+    setParams({showModal: false})
+    navigate('EditContactScreen', {contact, details: contacts[contact]})
+  }
+
   firstItem = () => {
     const rotate = rollingAnimationValue0.interpolate({
       inputRange: [0, 1],
       outputRange: ["0deg", "180deg"],
     });
     const { contacts } = this.state;
+    const {navigation} = this.props
 
     return (
       <Animated.View
         style={[
-          { translateX: movingAnimationValue0, zIndex: 2 },
+          { transform: [{ translateX: movingAnimationValue0 }], zIndex: 2 },
           styles.modalContent,
         ]}
       >
+        <Button 
+          style={styles.pencil} 
+          transparent 
+          onPress={() => this.editContact(0)}
+        >
+          <Icon
+            name="pencil"
+            type="EvilIcons"
+            style={{
+              fontSize: 32,
+              color: colors.orange,
+            }}
+          />
+        </Button>
+
         <Animated.View style={{ transform: [{ rotate }] }}>
           <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
             <CustomText bold text={contacts[0]?.contactName} />
@@ -166,7 +197,7 @@ export default class HomeScreen extends Component<Props> {
 
           <Button
             style={styles.closeButton}
-            onPress={() => this.setState({ showModal: false })}
+            onPress={() => navigation.setParams({ showModal: false })}
           >
             <Icon name="close" type="AntDesign" />
           </Button>
@@ -181,14 +212,30 @@ export default class HomeScreen extends Component<Props> {
       outputRange: ["0deg", "180deg"],
     });
     const { contacts } = this.state;
+    const {navigation} = this.props
 
     return (
       <Animated.View
         style={[
-          { translateX: movingAnimationValue1, zIndex: 1 },
+          { transform: [{ translateX: movingAnimationValue1 }], zIndex: 1 },
           styles.modalContent,
         ]}
       >
+        <Button 
+          style={styles.pencil} 
+          transparent 
+          onPress={() => this.editContact(1)}
+        >
+          <Icon
+            name="pencil"
+            type="EvilIcons"
+            style={{
+              fontSize: 32,
+              color: colors.orange,
+            }}
+          />
+        </Button>
+
         <Animated.View style={{ transform: [{ rotate }] }}>
           <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
             <CustomText bold text={contacts[1]?.contactName} />
@@ -219,7 +266,7 @@ export default class HomeScreen extends Component<Props> {
 
           <Button
             style={styles.closeButton}
-            onPress={() => this.setState({ showModal: false })}
+            onPress={() => navigation.setParams({ showModal: false })}
           >
             <Icon name="close" type="AntDesign" />
           </Button>
@@ -230,59 +277,73 @@ export default class HomeScreen extends Component<Props> {
 
   thirdItem = () => {
     const { contacts } = this.state;
+    const {navigation} = this.props
 
     return (
-        <View style={styles.modalContent}>
-          <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
-            <CustomText bold text={contacts[2]?.contactName} />
-          </CustomText>
+      <View style={styles.modalContent}>
+        <Button 
+          style={styles.pencil} 
+          transparent 
+          onPress={() => this.editContact(2)}
+        >
+          <Icon
+            name="pencil"
+            type="EvilIcons"
+            style={{
+              fontSize: 32,
+              color: colors.orange,
+            }}
+          />
+        </Button>
 
-          <CustomText text="Contact Email: " style={{ marginBottom: 8 }}>
-            <CustomText bold text={contacts[2]?.contactEmail} />
-          </CustomText>
+        <CustomText text="Contact Name: " style={{ marginBottom: 8 }}>
+          <CustomText bold text={contacts[2]?.contactName} />
+        </CustomText>
 
-          <CustomText text="Your Name: " style={{ marginBottom: 8 }}>
-            <CustomText bold text={contacts[2]?.username} />
-          </CustomText>
+        <CustomText text="Contact Email: " style={{ marginBottom: 8 }}>
+          <CustomText bold text={contacts[2]?.contactEmail} />
+        </CustomText>
 
-          <View style={styles.navigationIconsWrapper}>
-            <Button
-              style={{ backgroundColor: colors.brown }}
-              onPress={() => this.showContact(3, 2)}
-            >
-              <Icon name="arrowleft" type="AntDesign" />
-            </Button>
-            <Button
-              style={{ backgroundColor: colors.brown }}
-            >
-              <Icon name="arrowright" type="AntDesign" />
-            </Button>
-          </View>
+        <CustomText text="Your Name: " style={{ marginBottom: 8 }}>
+          <CustomText bold text={contacts[2]?.username} />
+        </CustomText>
 
+        <View style={styles.navigationIconsWrapper}>
           <Button
-            style={styles.closeButton}
-            onPress={() => this.setState({ showModal: false })}
+            style={{ backgroundColor: colors.brown }}
+            onPress={() => this.showContact(3, 2)}
           >
-            <Icon name="close" type="AntDesign" />
+            <Icon name="arrowleft" type="AntDesign" />
+          </Button>
+          <Button style={{ backgroundColor: colors.brown }}>
+            <Icon name="arrowright" type="AntDesign" />
           </Button>
         </View>
+
+        <Button
+          style={styles.closeButton}
+          onPress={() => navigation.setParams({ showModal: false })}
+        >
+          <Icon name="close" type="AntDesign" />
+        </Button>
+      </View>
     );
   };
 
   render() {
-    const { showModal } = this.state;
-
+    const {route: {params}, navigation} = this.props
+    
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
           <CustomButton label="Send Distress Mail" onPress={() => null} />
           <CustomButton
             label="View Contacts"
-            onPress={() => this.setState({ showModal: true })}
+            onPress={() => navigation.setParams({showModal: true})}
             style={styles.contactsButton}
           />
 
-          <Modal transparent visible={showModal}>
+          <Modal transparent visible={ params.showModal }>
             {this.firstItem()}
             {this.secondItem()}
             {this.thirdItem()}
