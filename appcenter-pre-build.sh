@@ -1,1 +1,1 @@
-echo "Let's see how things go"
+tsc && lint-staged
