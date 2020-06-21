@@ -1,1 +1,1 @@
-npx tsc && lint-staged
+yarn tsc && lint-staged
