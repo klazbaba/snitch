@@ -24,9 +24,10 @@ jobs:
       with:
         node-version: '13.x'
 
-    # Runs a set of commands using the runners shell
-    -run: yarn
+    -run: brew install yarn
+    -run: brew upgrade yarn
     - name: Run a multi-line script
       run: |
+        yarn
         yarn tsc && rm -r dist
         yarn eslint --fix "src/**" && yarn prettier --write "src/**"
