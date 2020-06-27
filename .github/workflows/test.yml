@@ -24,13 +24,11 @@ jobs:
         with:
           node-version: "13.x"
 
-      - name: Unlink node
-        run: brew unlink node@12
+      - name: Upgrade yarn
+        run: brew upgrade yarn
 
       - name: Run a multi-line script
         run: |
-          brew link --overwrite node
-          brew upgrade yarn
           yarn
           yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
