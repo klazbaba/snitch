@@ -25,9 +25,9 @@ jobs:
         node-version: '13.x'
 
     -run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    -run: brew install yarn
     - name: Run a multi-line script
       run: |
+        brew install yarn
         yarn
         yarn tsc && rm -r dist
         yarn eslint --fix "src/**" && yarn prettier --write "src/**"
