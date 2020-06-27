@@ -24,7 +24,8 @@ jobs:
       with:
         node-version: '13.x'
 
-    -run: npm install brew && say 'brew installed'
+    -run: say 'start'
+    -run: npm install brew
     - name: Run a multi-line script
       run: |
         yarn
