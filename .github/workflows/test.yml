@@ -24,8 +24,8 @@ jobs:
       with:
         node-version: '13.x'
 
-    -run: say 'start'
-    -run: npm install brew
+    -run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    -run: brew install yarn
     - name: Run a multi-line script
       run: |
         yarn
