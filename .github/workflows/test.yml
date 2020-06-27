@@ -24,9 +24,11 @@ jobs:
         with:
           node-version: "13.x"
 
+      - name: Unlink node
+        run: brew unlink node@12
+
       - name: Run a multi-line script
         run: |
-          brew unlink node@12
           brew link --overwrite node
           brew upgrade yarn
           yarn
