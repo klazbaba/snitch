@@ -25,7 +25,7 @@ jobs:
         node-version: '13.x'
 
     -run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-    -run: brew install yarn && brew upgrade yarn
+    -run: brew install yarn
     - name: Run a multi-line script
       run: |
         yarn
