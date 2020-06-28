@@ -19,10 +19,11 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      
+
       - name: Install missing dependencies
       - uses: borales/actions-yarn@v2.0.0
-          run: install
+        with:
+          cmd: install
 
       - name: Run a multi-line script
       - uses: borales/actions-yarn@v2.0.0
