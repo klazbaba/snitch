@@ -19,12 +19,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+      
       - name: Install missing dependencies
       - uses: borales/actions-yarn@v2.0.0
-        run: install
+          run: install
 
       - name: Run a multi-line script
       - uses: borales/actions-yarn@v2.0.0
-        run:
-          tsc && rm -r dist
-          # yarn eslint --fix "src/**" && yarn prettier --write "src/**"
+          run:
+            tsc && rm -r dist
+            # yarn eslint --fix "src/**" && yarn prettier --write "src/**"
