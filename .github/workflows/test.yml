@@ -26,8 +26,6 @@ jobs:
           cmd: install
 
       - name: Run a multi-line script
-      - uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd:
-            tsc && rm -r dist
-            # yarn eslint --fix "src/**" && yarn prettier --write "src/**"
+        run:
+          yarn tsc && yarn rm -r dist
+          # yarn eslint --fix "src/**" && yarn prettier --write "src/**"
