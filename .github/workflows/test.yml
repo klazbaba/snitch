@@ -20,13 +20,10 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Install yarn
-        run: npm install -g yarn
-
       - name: Install missing dependencies
         run: yarn && say 'yarn installed'
 
-      - name: Run a multi-line script
+      - name: Run tsc, eslint and prettier
         run: |
-          yarn tsc && yarn rm -r dist
+          yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
