@@ -21,7 +21,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install missing dependencies
-        run: yarn && say 'yarn installed'
+        run: yarn
 
       - name: Run tsc, eslint and prettier
         run: |
