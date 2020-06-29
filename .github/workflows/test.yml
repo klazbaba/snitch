@@ -24,10 +24,8 @@ jobs:
         run: yarn
 
       - name: Run tsc, eslint and prettier
-        # env:
-        #   path: /{"files":["**/__tests__/**/*.js","**/*.spec.js","**/*.test.js"],"env":{"jest":true,"jest/globals":true}/}
         run: |
-          sed s/{"files"/[{"files"/ ../node_modules/@react-native-community/eslint-config/index.js
-          sed s/:true}}/:true}}]/ ../node_modules/@react-native-community/eslint-config/index.js
+          sed s/{"files"/[{"files"/ ./node_modules/@react-native-community/eslint-config/index.js
+          sed s/:true}}/:true}}]/ ./node_modules/@react-native-community/eslint-config/index.js
           yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
