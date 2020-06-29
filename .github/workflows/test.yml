@@ -24,8 +24,13 @@ jobs:
         run: yarn
 
       - name: Run tsc, eslint and prettier
+        env:
+          path:
+            {
+              "files": ["**/__tests__/**/*.js", "**/*.spec.js", "**/*.test.js"],
+              "env": { "jest": true, "jest/globals": true },
+            }
         run: |
-          string = {"files":["**/__tests__/**/*.js","**/*.spec.js","**/*.test.js"],"env":{"jest":true,"jest/globals":true}}
-          sed "s/$string//[$string\]/"
+          sed "s/$path//[$path\]/"
           yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
