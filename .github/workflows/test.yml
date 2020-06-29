@@ -25,6 +25,7 @@ jobs:
 
       - name: Run tsc, eslint and prettier
         run: |
+          sed 's/{files/[{files/'
           sed 's/true,}}/true,}}]/'
           yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
