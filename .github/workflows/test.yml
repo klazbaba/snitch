@@ -25,7 +25,6 @@ jobs:
 
       - name: Run tsc, eslint and prettier
         run: |
-          sed 's/overrides: {/overrides: [{/'
-          sed 's/true,\n}\n}/true,\n}\n}]/'
+          sed 's/{"files":["**/__tests__/**/*.js","**/*.spec.js","**/*.test.js"],"env":{"jest":true,"jest/globals":true}}/[{"files":["**/__tests__/**/*.js","**/*.spec.js","**/*.test.js"],"env":{"jest":true,"jest/globals":true}}]'
           yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
