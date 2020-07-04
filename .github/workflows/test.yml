@@ -25,7 +25,5 @@ jobs:
 
       - name: Run tsc, eslint and prettier
         run: |
-          sed 's/overrides: {/overrides: \[{/' ./node_modules/@react-native-community/eslint-config/index.js
-          sed s/:true}}/:true}}]/ ./node_modules/@react-native-community/eslint-config/index.js
           yarn tsc && rm -r dist
           yarn eslint --fix "src/**" && yarn prettier --write "src/**"
