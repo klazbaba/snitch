@@ -346,7 +346,7 @@ export default class HomeScreen extends Component<Props> {
             style={styles.contactsButton}
           />
 
-          <Modal transparent visible={params.showModal}>
+          <Modal transparent visible={params?.showModal}>
             {this.firstItem()}
             {this.secondItem()}
             {this.thirdItem()}
