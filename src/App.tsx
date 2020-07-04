@@ -63,6 +63,7 @@ export default class Routes extends Component<Props, State> {
                   <AppStack.Screen
                     name="WelcomeScreen"
                     component={WelcomeScreen}
+                    options={{ header: () => null }}
                   />
                   <AppStack.Screen name="SetupScreen" component={SetupScreen} />
                 </>
