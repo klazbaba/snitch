@@ -57,13 +57,12 @@ export default class Routes extends Component<Props, State> {
               },
             }}
           >
-            <AppStack.Navigator>
+            <AppStack.Navigator headerMode="none">
               {!notFirstTime ? (
                 <>
                   <AppStack.Screen
                     name="WelcomeScreen"
                     component={WelcomeScreen}
-                    options={{ header: () => null }}
                   />
                   <AppStack.Screen name="SetupScreen" component={SetupScreen} />
                 </>
