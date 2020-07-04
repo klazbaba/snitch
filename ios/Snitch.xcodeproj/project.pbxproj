@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* SnitchTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* SnitchTests.m */; };
+		08FF7811BACE65B324062A1E /* libPods-Snitch-SnitchTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E64AB191F9AB6DAC72D97260 /* libPods-Snitch-SnitchTests.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -30,10 +31,10 @@
 		B1D50F812E0441F383362AE3 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 17CEB0DA83AE4660974075C9 /* FontAwesome.ttf */; };
 		C6A15A8F3AFE4D1AAF4DA7C9 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 14ABCC7B05B1428F83439E1B /* SimpleLineIcons.ttf */; };
 		C738314C35B44FC68ACBF40E /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EC81C069438E4F8E95F58AFD /* FontAwesome5_Solid.ttf */; };
-		C928AE44215911993FFD83EB /* libPods-SnitchTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55FD7BCB561C717D910069C7 /* libPods-SnitchTests.a */; };
 		D21B0C82C7AA4FD1B1F7DAAA /* Roboto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 85E221CBEB244A289CC473EB /* Roboto.ttf */; };
 		D66C070F385E4DC59CD48D4D /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 740DA5AB85554133A7C5148E /* FontAwesome5_Brands.ttf */; };
 		DB3639CC084E4EE695051545 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9100EE4B503944C08D6E7155 /* MaterialCommunityIcons.ttf */; };
+		E792883824B0883000F608B6 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E792883724B0883000F608B6 /* Dummy.swift */; };
 		EC0246FD0A0342A9B341C40F /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0A6E9C0BB49545EC9FF5A3E0 /* FontAwesome5_Regular.ttf */; };
 		EEE1109798E74106AAE5D849 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24A8C7C28D184F5BBF4CF9EA /* MaterialIcons.ttf */; };
 		F2771BAFA98742D787BF1291 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 04F85BAF9A724E0CB13FBBB5 /* Foundation.ttf */; };
@@ -80,8 +81,8 @@
 		2D02E47B1E0B4A5D006451C7 /* Snitch-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snitch-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Snitch-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snitch-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3ADED8EB373F763BD55A4721 /* libPods-Snitch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snitch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3FD68E88D5D4D89015E8961B /* Pods-Snitch-SnitchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snitch-SnitchTests.release.xcconfig"; path = "Target Support Files/Pods-Snitch-SnitchTests/Pods-Snitch-SnitchTests.release.xcconfig"; sourceTree = "<group>"; };
 		491D141726C64AA3B087AE47 /* Roboto_medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto_medium.ttf; path = "../node_modules/native-base/Fonts/Roboto_medium.ttf"; sourceTree = "<group>"; };
-		55FD7BCB561C717D910069C7 /* libPods-SnitchTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SnitchTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		59F2944FABD64934A9ACFA67 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/native-base/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		62E21230BFD7F2C3549DDA95 /* libPods-Snitch-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snitch-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		68BFF5B96B1A4D5AACE86077 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/native-base/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		85E221CBEB244A289CC473EB /* Roboto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Roboto.ttf; path = "../node_modules/native-base/Fonts/Roboto.ttf"; sourceTree = "<group>"; };
 		9100EE4B503944C08D6E7155 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		935962E39D56AFBB658857AE /* Pods-Snitch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snitch.release.xcconfig"; path = "Target Support Files/Pods-Snitch/Pods-Snitch.release.xcconfig"; sourceTree = "<group>"; };
+		95C0B9F2593E61BB90796EB6 /* Pods-Snitch-SnitchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snitch-SnitchTests.debug.xcconfig"; path = "Target Support Files/Pods-Snitch-SnitchTests/Pods-Snitch-SnitchTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9762ABD011624668BFFB4AA9 /* rubicon-icon-font.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "rubicon-icon-font.ttf"; path = "../node_modules/native-base/Fonts/rubicon-icon-font.ttf"; sourceTree = "<group>"; };
 		A0F37533CBFA48DDA8BF4C5E /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/native-base/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		A3151F444380FBECC8CED2C3 /* Pods-Snitch-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snitch-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Snitch-tvOSTests/Pods-Snitch-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +101,9 @@
 		D2D4F19AFE1F46C282573EEA /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		D4EA6739E4002E7FAB6B64C1 /* Pods-Snitch-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Snitch-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Snitch-tvOS/Pods-Snitch-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		E2167F9B9AD8CBFCDB46FD60 /* libPods-Snitch-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snitch-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E64AB191F9AB6DAC72D97260 /* libPods-Snitch-SnitchTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Snitch-SnitchTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E792883624B087C200F608B6 /* Snitch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Snitch-Bridging-Header.h"; sourceTree = "<group>"; };
+		E792883724B0883000F608B6 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
 		EB5332A123BA485698F54D7B /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/native-base/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		EC81C069438E4F8E95F58AFD /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/native-base/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -112,7 +117,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C928AE44215911993FFD83EB /* libPods-SnitchTests.a in Frameworks */,
+				08FF7811BACE65B324062A1E /* libPods-Snitch-SnitchTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,6 +175,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				E792883624B087C200F608B6 /* Snitch-Bridging-Header.h */,
+				E792883724B0883000F608B6 /* Dummy.swift */,
 			);
 			name = Snitch;
 			sourceTree = "<group>";
@@ -182,7 +189,7 @@
 				3ADED8EB373F763BD55A4721 /* libPods-Snitch.a */,
 				E2167F9B9AD8CBFCDB46FD60 /* libPods-Snitch-tvOS.a */,
 				62E21230BFD7F2C3549DDA95 /* libPods-Snitch-tvOSTests.a */,
-				55FD7BCB561C717D910069C7 /* libPods-SnitchTests.a */,
+				E64AB191F9AB6DAC72D97260 /* libPods-Snitch-SnitchTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,6 +265,8 @@
 				A3151F444380FBECC8CED2C3 /* Pods-Snitch-tvOSTests.release.xcconfig */,
 				B834D9F461C03E782F9DFFD6 /* Pods-SnitchTests.debug.xcconfig */,
 				AB4FF56D5DD53F64A415E9B3 /* Pods-SnitchTests.release.xcconfig */,
+				95C0B9F2593E61BB90796EB6 /* Pods-Snitch-SnitchTests.debug.xcconfig */,
+				3FD68E88D5D4D89015E8961B /* Pods-Snitch-SnitchTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -355,6 +364,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						LastSwiftMigration = 1130;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -508,7 +520,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SnitchTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Snitch-SnitchTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -613,6 +625,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
+				E792883824B0883000F608B6 /* Dummy.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -664,8 +677,9 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B834D9F461C03E782F9DFFD6 /* Pods-SnitchTests.debug.xcconfig */;
+			baseConfigurationReference = 95C0B9F2593E61BB90796EB6 /* Pods-Snitch-SnitchTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -674,6 +688,10 @@
 				INFOPLIST_FILE = SnitchTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -687,13 +705,18 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AB4FF56D5DD53F64A415E9B3 /* Pods-SnitchTests.release.xcconfig */;
+			baseConfigurationReference = 3FD68E88D5D4D89015E8961B /* Pods-Snitch-SnitchTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = SnitchTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -710,10 +733,15 @@
 			baseConfigurationReference = 02257522D744FE7D616BEB67 /* Pods-Snitch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				INFOPLIST_FILE = Snitch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -721,6 +749,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Snitch;
+				SWIFT_OBJC_BRIDGING_HEADER = "Snitch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -730,9 +761,14 @@
 			baseConfigurationReference = 935962E39D56AFBB658857AE /* Pods-Snitch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = Snitch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -740,6 +776,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Snitch;
+				SWIFT_OBJC_BRIDGING_HEADER = "Snitch-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
@@ -759,6 +797,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Snitch-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -787,6 +829,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Snitch-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -814,6 +860,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Snitch-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -841,6 +891,10 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "Snitch-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_CFLAGS = (
+					"$(inherited)",
+					"-DFB_SONARKIT_ENABLED=1",
+				);
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
