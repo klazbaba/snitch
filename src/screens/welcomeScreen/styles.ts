@@ -8,9 +8,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   title: {
-    fontSize: 24,
+    fontSize: 32,
     fontWeight: "bold",
-    marginBottom: 32,
+    marginBottom: 48,
   },
   subTitle: {
     fontSize: 18,
