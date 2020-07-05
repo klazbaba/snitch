@@ -38,7 +38,6 @@ const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
 const animationTime = 500;
-// let buttonPressedFromEditScreen = "";
 
 export default class HomeScreen extends Component<Props> {
   state: State;
@@ -56,7 +55,6 @@ export default class HomeScreen extends Component<Props> {
     });
 
     this.state = {
-      // showModal: false,
       contacts: [],
     };
   }
