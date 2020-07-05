@@ -70,6 +70,7 @@ export default class SetupScreen extends Component<Props> {
     Animated.timing(wrapper, {
       toValue: 0,
       duration: wrapper === secondWrapper ? 1000 : 500,
+      useNativeDriver: true,
     }).start();
   };
 

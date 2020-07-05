@@ -17,11 +17,12 @@ interface Props {
 interface Route {
   params: {
     showModal: boolean;
+    fromEdit: boolean;
+    contacts: string;
   };
 }
 
 interface State {
-  // showModal: boolean;
   contacts: Array<Contact>;
 }
 
@@ -38,14 +39,12 @@ const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
 const animationTime = 500;
-// let buttonPressedFromEditScreen = "";
 
 export default class HomeScreen extends Component<Props> {
   state: State;
 
   constructor(props: Props) {
     super(props);
-
     props.navigation.setParams({ showModal: false });
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
@@ -56,10 +55,24 @@ export default class HomeScreen extends Component<Props> {
     });
 
     this.state = {
-      // showModal: false,
       contacts: [],
     };
   }
+
+  componentDidMount = () => {
+    this.props.navigation.addListener("focus", () => {
+      if (this.props.route.params?.fromEdit) {
+        const { contacts } = this.props.route.params;
+        this.setState({
+          contacts: Object.values(contacts),
+          currentContact: contacts[0],
+        });
+      }
+    });
+  };
+
+  componentWillUnmount = () =>
+    this.props.navigation.removeListener("focus", () => {});
 
   animate = (from: Animated.Value, to: number) => {
     Animated.timing(from, {
