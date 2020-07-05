@@ -6,6 +6,7 @@ import {
   View,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -69,12 +70,27 @@ export default class EditContactScreen extends Component<Props> {
   handleSavePress = async () => {
     const { username, contactEmail, contactName } = this.state;
     const { contact } = this.props.route.params;
+    const { navigate } = this.props.navigation;
     let contactDetails: string | Contact = await AsyncStorage.getItem(
       "contactDetails"
     );
     contactDetails = JSON.parse(contactDetails);
-    contactDetails[contact] = { contactName, contactEmail, username };
-    console.warn(JSON.stringify(contactDetails, null, 10));
+    contactDetails[contact] = {
+      contactName: contactName.trim(),
+      contactEmail: contactEmail.trim().toLowerCase(),
+      username: username.trim(),
+    };
+    await AsyncStorage.setItem(
+      "contactDetails",
+      JSON.stringify(contactDetails)
+    );
+    Alert.alert("Details successfully updated!", "", [
+      {
+        text: "OK",
+        onPress: () =>
+          navigate("HomeScreen", { contacts: contactDetails, fromEdit: true }),
+      },
+    ]);
   };
 
   render() {
@@ -92,7 +108,10 @@ export default class EditContactScreen extends Component<Props> {
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="always"
+        >
           <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : null}
             keyboardVerticalOffset={Platform.OS === "ios" ? 120 : null}

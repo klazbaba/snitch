@@ -17,11 +17,12 @@ interface Props {
 interface Route {
   params: {
     showModal: boolean;
+    fromEdit: boolean;
+    contacts: string;
   };
 }
 
 interface State {
-  // showModal: boolean;
   contacts: Array<Contact>;
 }
 
@@ -44,7 +45,6 @@ export default class HomeScreen extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-
     props.navigation.setParams({ showModal: false });
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
@@ -58,6 +58,21 @@ export default class HomeScreen extends Component<Props> {
       contacts: [],
     };
   }
+
+  componentDidMount = () => {
+    this.props.navigation.addListener("focus", () => {
+      if (this.props.route.params?.fromEdit) {
+        const { contacts } = this.props.route.params;
+        this.setState({
+          contacts: Object.values(contacts),
+          currentContact: contacts[0],
+        });
+      }
+    });
+  };
+
+  componentWillUnmount = () =>
+    this.props.navigation.removeListener("focus", () => {});
 
   animate = (from: Animated.Value, to: number) => {
     Animated.timing(from, {
