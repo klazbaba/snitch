@@ -83,7 +83,6 @@ export default class SetupScreen extends Component<Props> {
 
   handleFabPress = () => {
     const { numberOfContactShown } = this.state;
-
     if (numberOfContactShown === 1) this.animateUpward(secondWrapper);
     else if (numberOfContactShown === 2) this.animateUpward(thirdWrapper);
     else if (numberOfContactShown > 2)
@@ -391,7 +390,7 @@ export default class SetupScreen extends Component<Props> {
                         }
                       />
                       <CustomButton
-                        label="Save"
+                        text="Save"
                         onPress={() => this.saveContacts(toggleIsFirstTime)}
                         style={styles.button}
                       />

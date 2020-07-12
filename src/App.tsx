@@ -24,7 +24,6 @@ export const NavigationContext = createContext(null);
 export default class Routes extends Component<Props, State> {
   notFirstTime: boolean;
   static contextType = NavigationContext;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -44,7 +43,6 @@ export default class Routes extends Component<Props, State> {
   render() {
     const { initialRender, notFirstTime } = this.state;
     if (initialRender) return null;
-
     return (
       <Root>
         <NavigationContainer>

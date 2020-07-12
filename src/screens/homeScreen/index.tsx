@@ -3,6 +3,8 @@ import { SafeAreaView, Modal, View, Animated, Easing } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
+// @ts-ignore
+import { LogBox } from "react-native";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -45,7 +47,6 @@ export default class HomeScreen extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    props.navigation.setParams({ showModal: false });
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
       this.setState({
@@ -57,6 +58,7 @@ export default class HomeScreen extends Component<Props> {
     this.state = {
       contacts: [],
     };
+    LogBox.ignoreLogs([/useAnimatedDriver/]);
   }
 
   componentDidMount = () => {
@@ -348,18 +350,17 @@ export default class HomeScreen extends Component<Props> {
       route: { params },
       navigation,
     } = this.props;
-
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
-          <CustomButton label="Send Distress Mail" onPress={() => null} />
+          <CustomButton text="Send Distress Mail" onPress={() => null} />
           <CustomButton
-            label="View Contacts"
+            text="View Contacts"
             onPress={() => navigation.setParams({ showModal: true })}
             style={styles.contactsButton}
           />
 
-          <Modal transparent visible={params?.showModal}>
+          <Modal transparent visible={!!params?.showModal}>
             {this.firstItem()}
             {this.secondItem()}
             {this.thirdItem()}

@@ -6,7 +6,7 @@ import CustomText from "./CustomText";
 import { colors } from "../colors";
 
 interface Props {
-  label: string;
+  text: string;
   style?: object;
   textStyle?: object;
   onPress: () => void;
@@ -16,7 +16,7 @@ export default function CustomButton(props: Props) {
   return (
     <Button style={[styles.wrapper, props.style]} onPress={props.onPress}>
       <CustomText
-        text={props.label}
+        text={props.text}
         style={[styles.text, props.textStyle]}
         bold
       />
