@@ -138,12 +138,12 @@ export default class EditContactScreen extends Component<Props> {
             />
             <View style={styles.buttomSection}>
               <CustomButton
-                label="Cancel"
+                text="Cancel"
                 style={[styles.button, { backgroundColor: colors.red }]}
                 onPress={() => navigate("HomeScreen", { showModal: true })}
               />
               <CustomButton
-                label="Save"
+                text="Save"
                 style={[styles.button, { backgroundColor: colors.green }]}
                 onPress={this.handleSavePress}
               />
