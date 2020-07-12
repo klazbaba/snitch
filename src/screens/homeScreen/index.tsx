@@ -47,7 +47,6 @@ export default class HomeScreen extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    props.navigation.setParams({ showModal: false });
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
       this.setState({
@@ -351,7 +350,6 @@ export default class HomeScreen extends Component<Props> {
       route: { params },
       navigation,
     } = this.props;
-
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
@@ -362,7 +360,7 @@ export default class HomeScreen extends Component<Props> {
             style={styles.contactsButton}
           />
 
-          <Modal transparent visible={params?.showModal}>
+          <Modal transparent visible={!!params?.showModal}>
             {this.firstItem()}
             {this.secondItem()}
             {this.thirdItem()}
