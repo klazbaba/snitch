@@ -353,9 +353,9 @@ export default class HomeScreen extends Component<Props> {
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
-          <CustomButton label="Send Distress Mail" onPress={() => null} />
+          <CustomButton text="Send Distress Mail" onPress={() => null} />
           <CustomButton
-            label="View Contacts"
+            text="View Contacts"
             onPress={() => navigation.setParams({ showModal: true })}
             style={styles.contactsButton}
           />

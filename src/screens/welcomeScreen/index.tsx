@@ -23,7 +23,7 @@ export default class WelcomeScreen extends Component<Props> {
             style={styles.subTitle}
           />
           <CustomButton
-            label="Get Started"
+            text="Get Started"
             style={styles.button}
             textStyle={styles.buttonText}
             onPress={() => this.props.navigation.navigate("SetupScreen")}
