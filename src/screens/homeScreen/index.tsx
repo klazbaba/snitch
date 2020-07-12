@@ -59,7 +59,7 @@ export default class HomeScreen extends Component<Props> {
     this.state = {
       contacts: [],
     };
-    LogBox.ignoreLogs(/useAnimatedDriver/);
+    LogBox.ignoreLogs([/useAnimatedDriver/]);
   }
 
   componentDidMount = () => {
