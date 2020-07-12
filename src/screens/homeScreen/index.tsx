@@ -3,6 +3,8 @@ import { SafeAreaView, Modal, View, Animated, Easing } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
+// @ts-ignore
+import { LogBox } from "react-native";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -57,6 +59,7 @@ export default class HomeScreen extends Component<Props> {
     this.state = {
       contacts: [],
     };
+    LogBox.ignoreLogs(/useAnimatedDriver/);
   }
 
   componentDidMount = () => {
