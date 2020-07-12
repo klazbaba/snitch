@@ -4,8 +4,12 @@ import {
   ScrollView,
   TextInputProperties,
   View,
+  KeyboardAvoidingView,
+  Platform,
+  Alert,
 } from "react-native";
 import { StackNavigationProp } from "@react-navigation/stack";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { styles } from "./styles";
 import ContactDetails from "../_components/ContactDetails";
@@ -25,6 +29,7 @@ interface ContactItem {
 
 interface Contact {
   details: ContactItem;
+  contact?: number;
 }
 
 interface Route {
@@ -62,6 +67,32 @@ export default class EditContactScreen extends Component<Props> {
     };
   }
 
+  handleSavePress = async () => {
+    const { username, contactEmail, contactName } = this.state;
+    const { contact } = this.props.route.params;
+    const { navigate } = this.props.navigation;
+    let contactDetails: string | Contact = await AsyncStorage.getItem(
+      "contactDetails"
+    );
+    contactDetails = JSON.parse(contactDetails);
+    contactDetails[contact] = {
+      contactName: contactName.trim(),
+      contactEmail: contactEmail.trim().toLowerCase(),
+      username: username.trim(),
+    };
+    await AsyncStorage.setItem(
+      "contactDetails",
+      JSON.stringify(contactDetails)
+    );
+    Alert.alert("Details successfully updated!", "", [
+      {
+        text: "OK",
+        onPress: () =>
+          navigate("HomeScreen", { contacts: contactDetails, fromEdit: true }),
+      },
+    ]);
+  };
+
   render() {
     const {
       contactName,
@@ -77,39 +108,47 @@ export default class EditContactScreen extends Component<Props> {
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <ScrollView contentContainerStyle={styles.container}>
-          <ContactDetails
-            contactName={contactName}
-            contactEmail={contactEmail}
-            username={username}
-            onContactNameChange={(contactName) =>
-              this.setState({ contactName })
-            }
-            onContactEmailChange={(contactEmail) =>
-              this.setState({ contactEmail })
-            }
-            onUsernameChange={(username) => this.setState({ username })}
-            contactNameError={nameHasError}
-            usernameError={usernameHasError}
-            emailError={emailHasError}
-            emailRef={(email) => (emailInput = email)}
-            usernameRef={(username) => (usernameInput = username)}
-            onSubmitContactEmail={() => usernameInput._root.focus()}
-            onSubmitContactName={() => emailInput._root.focus()}
-            style={{ marginBottom: 0 }}
-          />
-          <View style={styles.buttomSection}>
-            <CustomButton
-              label="Cancel"
-              style={[styles.button, { backgroundColor: colors.red }]}
-              onPress={() => navigate("HomeScreen", { showModal: true })}
+        <ScrollView
+          contentContainerStyle={styles.container}
+          keyboardShouldPersistTaps="always"
+        >
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : null}
+            keyboardVerticalOffset={Platform.OS === "ios" ? 120 : null}
+          >
+            <ContactDetails
+              contactName={contactName}
+              contactEmail={contactEmail}
+              username={username}
+              onContactNameChange={(contactName) =>
+                this.setState({ contactName })
+              }
+              onContactEmailChange={(contactEmail) =>
+                this.setState({ contactEmail })
+              }
+              onUsernameChange={(username) => this.setState({ username })}
+              contactNameError={nameHasError}
+              usernameError={usernameHasError}
+              emailError={emailHasError}
+              emailRef={(email) => (emailInput = email)}
+              usernameRef={(username) => (usernameInput = username)}
+              onSubmitContactEmail={() => usernameInput._root.focus()}
+              onSubmitContactName={() => emailInput._root.focus()}
+              style={{ marginBottom: 0 }}
             />
-            <CustomButton
-              label="Save"
-              style={[styles.button, { backgroundColor: colors.green }]}
-              onPress={() => {}}
-            />
-          </View>
+            <View style={styles.buttomSection}>
+              <CustomButton
+                label="Cancel"
+                style={[styles.button, { backgroundColor: colors.red }]}
+                onPress={() => navigate("HomeScreen", { showModal: true })}
+              />
+              <CustomButton
+                label="Save"
+                style={[styles.button, { backgroundColor: colors.green }]}
+                onPress={this.handleSavePress}
+              />
+            </View>
+          </KeyboardAvoidingView>
         </ScrollView>
       </SafeAreaView>
     );

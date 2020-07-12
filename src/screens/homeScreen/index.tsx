@@ -11,17 +11,18 @@ import { colors } from "../colors";
 
 interface Props {
   navigation: StackNavigationProp<Record<string, object | undefined>, string>;
-  route: Route
+  route: Route;
 }
 
 interface Route {
   params: {
-    showModal: boolean
-  }
+    showModal: boolean;
+    fromEdit: boolean;
+    contacts: string;
+  };
 }
 
 interface State {
-  // showModal: boolean;
   contacts: Array<Contact>;
 }
 
@@ -38,15 +39,13 @@ const rollingAnimationValue1 = new Animated.Value(0);
 const movingAnimationValue1 = new Animated.Value(0);
 
 const animationTime = 500;
-let buttonPressedFromEditScreen = ''
 
 export default class HomeScreen extends Component<Props> {
   state: State;
 
   constructor(props: Props) {
     super(props);
-    
-    props.navigation.setParams({showModal: false})
+    props.navigation.setParams({ showModal: false });
     AsyncStorage.getItem("contactDetails").then((contacts) => {
       contacts = JSON.parse(contacts);
       this.setState({
@@ -56,10 +55,24 @@ export default class HomeScreen extends Component<Props> {
     });
 
     this.state = {
-      // showModal: false,
       contacts: [],
     };
   }
+
+  componentDidMount = () => {
+    this.props.navigation.addListener("focus", () => {
+      if (this.props.route.params?.fromEdit) {
+        const { contacts } = this.props.route.params;
+        this.setState({
+          contacts: Object.values(contacts),
+          currentContact: contacts[0],
+        });
+      }
+    });
+  };
+
+  componentWillUnmount = () =>
+    this.props.navigation.removeListener("focus", () => {});
 
   animate = (from: Animated.Value, to: number) => {
     Animated.timing(from, {
@@ -134,11 +147,11 @@ export default class HomeScreen extends Component<Props> {
   };
 
   editContact = (contact: number) => {
-    const {navigate, setParams} = this.props.navigation
-    const {contacts} = this.state
-    setParams({showModal: false})
-    navigate('EditContactScreen', {contact, details: contacts[contact]})
-  }
+    const { navigate, setParams } = this.props.navigation;
+    const { contacts } = this.state;
+    setParams({ showModal: false });
+    navigate("EditContactScreen", { contact, details: contacts[contact] });
+  };
 
   firstItem = () => {
     const rotate = rollingAnimationValue0.interpolate({
@@ -146,7 +159,7 @@ export default class HomeScreen extends Component<Props> {
       outputRange: ["0deg", "180deg"],
     });
     const { contacts } = this.state;
-    const {navigation} = this.props
+    const { navigation } = this.props;
 
     return (
       <Animated.View
@@ -155,9 +168,9 @@ export default class HomeScreen extends Component<Props> {
           styles.modalContent,
         ]}
       >
-        <Button 
-          style={styles.pencil} 
-          transparent 
+        <Button
+          style={styles.pencil}
+          transparent
           onPress={() => this.editContact(0)}
         >
           <Icon
@@ -212,7 +225,7 @@ export default class HomeScreen extends Component<Props> {
       outputRange: ["0deg", "180deg"],
     });
     const { contacts } = this.state;
-    const {navigation} = this.props
+    const { navigation } = this.props;
 
     return (
       <Animated.View
@@ -221,9 +234,9 @@ export default class HomeScreen extends Component<Props> {
           styles.modalContent,
         ]}
       >
-        <Button 
-          style={styles.pencil} 
-          transparent 
+        <Button
+          style={styles.pencil}
+          transparent
           onPress={() => this.editContact(1)}
         >
           <Icon
@@ -277,13 +290,13 @@ export default class HomeScreen extends Component<Props> {
 
   thirdItem = () => {
     const { contacts } = this.state;
-    const {navigation} = this.props
+    const { navigation } = this.props;
 
     return (
       <View style={styles.modalContent}>
-        <Button 
-          style={styles.pencil} 
-          transparent 
+        <Button
+          style={styles.pencil}
+          transparent
           onPress={() => this.editContact(2)}
         >
           <Icon
@@ -331,19 +344,22 @@ export default class HomeScreen extends Component<Props> {
   };
 
   render() {
-    const {route: {params}, navigation} = this.props
-    
+    const {
+      route: { params },
+      navigation,
+    } = this.props;
+
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
           <CustomButton label="Send Distress Mail" onPress={() => null} />
           <CustomButton
             label="View Contacts"
-            onPress={() => navigation.setParams({showModal: true})}
+            onPress={() => navigation.setParams({ showModal: true })}
             style={styles.contactsButton}
           />
 
-          <Modal transparent visible={ params.showModal }>
+          <Modal transparent visible={params?.showModal}>
             {this.firstItem()}
             {this.secondItem()}
             {this.thirdItem()}

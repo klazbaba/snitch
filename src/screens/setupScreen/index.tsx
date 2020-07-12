@@ -10,6 +10,8 @@ import {
 import { Fab, Toast } from "native-base";
 import AsyncStorage from "@react-native-community/async-storage";
 import { StackNavigationProp } from "@react-navigation/stack";
+// @ts-ignore
+import { LogBox } from "react-native";
 
 import { styles } from "./styles";
 import ContactDetails from "../_components/ContactDetails";
@@ -50,26 +52,32 @@ let thirdContactEmailInput: any;
 let thirdUsernameInput: any;
 
 export default class SetupScreen extends Component<Props> {
-  state: State = {
-    numberOfContactShown: 1,
-    contactName: ["", "", ""],
-    contactEmail: ["", "", ""],
-    username: ["", "", ""],
-    firstContactNameHasError: false,
-    firstContactEmailHasError: false,
-    firstUsernameHasError: false,
-    secondContactNameHasError: false,
-    secondContactEmailHasError: false,
-    secondUsernameHasError: false,
-    thirdContactNameHasError: false,
-    thirdContactEmailHasError: false,
-    thirdUsernameHasError: false,
-  };
+  state: State;
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      numberOfContactShown: 1,
+      contactName: ["", "", ""],
+      contactEmail: ["", "", ""],
+      username: ["", "", ""],
+      firstContactNameHasError: false,
+      firstContactEmailHasError: false,
+      firstUsernameHasError: false,
+      secondContactNameHasError: false,
+      secondContactEmailHasError: false,
+      secondUsernameHasError: false,
+      thirdContactNameHasError: false,
+      thirdContactEmailHasError: false,
+      thirdUsernameHasError: false,
+    };
+    LogBox.ignoreLogs([/useNativeDriver/]);
+  }
 
   animateUpward = (wrapper: Animated.Value) => {
     Animated.timing(wrapper, {
       toValue: 0,
       duration: wrapper === secondWrapper ? 1000 : 500,
+      useNativeDriver: false,
     }).start();
   };
 
@@ -96,7 +104,7 @@ export default class SetupScreen extends Component<Props> {
 
   validateEmail = (emails: Array<string>) => {
     const result = emails.map((email: string, index: number) => {
-      const isValid = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
+      const isValid = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
         email.toLowerCase()
       );
       if (!isValid) return index;

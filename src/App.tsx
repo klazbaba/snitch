@@ -57,7 +57,7 @@ export default class Routes extends Component<Props, State> {
               },
             }}
           >
-            <AppStack.Navigator>
+            <AppStack.Navigator headerMode="none">
               {!notFirstTime ? (
                 <>
                   <AppStack.Screen

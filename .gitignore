@@ -63,3 +63,6 @@ appcenter-config.json
 
 #TypeScript
 dist
+
+#eslint
+.eslintcache

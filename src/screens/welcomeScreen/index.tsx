@@ -17,7 +17,7 @@ export default class WelcomeScreen extends Component<Props> {
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.textContainer}>
-          <CustomText text={"Hello, welcome to Snitch."} style={styles.title} />
+          <CustomText text={"We Snitch... 😉"} style={styles.title} />
           <CustomText
             text="We help your loved ones find you in case you illegally got picked up."
             style={styles.subTitle}
