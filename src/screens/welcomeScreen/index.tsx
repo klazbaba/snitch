@@ -15,7 +15,7 @@ interface Props {
 export default class WelcomeScreen extends Component<Props> {
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={styles.container} testID="welcomeScreen">
         <View style={styles.textContainer}>
           <CustomText text={"We Snitch... 😉"} style={styles.title} />
           <CustomText
@@ -27,6 +27,7 @@ export default class WelcomeScreen extends Component<Props> {
             style={styles.button}
             textStyle={styles.buttonText}
             onPress={() => this.props.navigation.navigate("SetupScreen")}
+            testID="getStartedButton"
           />
         </View>
 

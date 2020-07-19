@@ -33,12 +33,17 @@ interface Props extends ViewProperties {
   contactName?: string;
   contactEmail?: string;
   username?: string;
+  testID: string;
 }
 
 class ContactDetails extends Component<Props> {
   render() {
     return (
-      <Animated.View {...this.props} style={[styles.wrapper, this.props.style]}>
+      <Animated.View
+        {...this.props}
+        style={[styles.wrapper, this.props.style]}
+        testID={this.props.testID}
+      >
         <Form>
           <Item floatingLabel error={this.props.contactNameError}>
             <Label style={styles.label}>Contact Name</Label>
@@ -51,6 +56,7 @@ class ContactDetails extends Component<Props> {
               autoFocus={this.props.autoFocus}
               blurOnSubmit={false}
               value={this.props.contactName}
+              testID="contactName"
             />
           </Item>
 
@@ -67,6 +73,7 @@ class ContactDetails extends Component<Props> {
               onSubmitEditing={this.props.onSubmitContactEmail}
               blurOnSubmit={false}
               value={this.props.contactEmail}
+              testID="email"
             />
           </Item>
 
@@ -80,6 +87,7 @@ class ContactDetails extends Component<Props> {
               getRef={this.props.usernameRef}
               onSubmitEditing={this.props.onSubmitUsername}
               value={this.props.username}
+              testID="username"
             />
           </Item>
           <CustomText
