@@ -358,6 +358,7 @@ export default class HomeScreen extends Component<Props> {
             text="View Contacts"
             onPress={() => navigation.setParams({ showModal: true })}
             style={styles.contactsButton}
+            testID="viewContacts"
           />
 
           <Modal transparent visible={!!params?.showModal}>
