@@ -135,6 +135,7 @@ export default class EditContactScreen extends Component<Props> {
               onSubmitContactEmail={() => usernameInput._root.focus()}
               onSubmitContactName={() => emailInput._root.focus()}
               style={{ marginBottom: 0 }}
+              testID="textInput"
             />
             <View style={styles.buttomSection}>
               <CustomButton
