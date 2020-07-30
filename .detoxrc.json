@@ -6,7 +6,6 @@
       "type": "ios.simulator",
       "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/Snitch.app",
       "build": "xcodebuild -workspace ios/Snitch.xcworkspace -scheme Snitch -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
-
       "device": {
         "type": "iPhone 11"
       }
