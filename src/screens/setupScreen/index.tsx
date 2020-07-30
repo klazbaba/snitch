@@ -295,10 +295,11 @@ export default class SetupScreen extends Component<Props> {
       <NavigationContext.Consumer>
         {({ toggleIsFirstTime }) => {
           return (
-            <SafeAreaView style={{ flex: 1 }}>
+            <SafeAreaView style={{ flex: 1 }} testID="setupScreen">
               <ScrollView
                 contentContainerStyle={styles.container}
                 keyboardShouldPersistTaps="handled"
+                testID="scrollView"
               >
                 <KeyboardAvoidingView
                   behavior="padding"
@@ -329,6 +330,7 @@ export default class SetupScreen extends Component<Props> {
                     }
                     usernameRef={(username) => (firstUsernameInput = username)}
                     autoFocus
+                    testID="firstContact"
                   />
 
                   {numberOfContactShown > 1 ? (
@@ -356,6 +358,7 @@ export default class SetupScreen extends Component<Props> {
                       usernameRef={(username) =>
                         (secondUsernameInput = username)
                       }
+                      testID="secondContact"
                     />
                   ) : null}
 
@@ -388,18 +391,24 @@ export default class SetupScreen extends Component<Props> {
                         onSubmitUsername={() =>
                           this.saveContacts(toggleIsFirstTime)
                         }
+                        testID="thirdContact"
                       />
                       <CustomButton
                         text="Save"
                         onPress={() => this.saveContacts(toggleIsFirstTime)}
                         style={styles.button}
+                        testID="saveButton"
                       />
                     </>
                   ) : null}
                 </KeyboardAvoidingView>
               </ScrollView>
 
-              <Fab style={styles.fab} onPress={this.handleFabPress}>
+              <Fab
+                style={styles.fab}
+                onPress={this.handleFabPress}
+                testID="fab"
+              >
                 <CustomText text={"\u002B"} style={styles.plusIcon} />
               </Fab>
             </SafeAreaView>

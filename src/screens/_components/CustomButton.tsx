@@ -10,11 +10,16 @@ interface Props {
   style?: object;
   textStyle?: object;
   onPress: () => void;
+  testID?: string;
 }
 
 export default function CustomButton(props: Props) {
   return (
-    <Button style={[styles.wrapper, props.style]} onPress={props.onPress}>
+    <Button
+      style={[styles.wrapper, props.style]}
+      onPress={props.onPress}
+      testID={props.testID}
+    >
       <CustomText
         text={props.text}
         style={[styles.text, props.textStyle]}
