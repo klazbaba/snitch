@@ -1,10 +1,20 @@
 import React, { Component } from "react";
-import { SafeAreaView, Modal, View, Animated, Easing } from "react-native";
+import {
+  SafeAreaView,
+  Modal,
+  View,
+  Animated,
+  Easing,
+  Platform,
+  PermissionsAndroid,
+  Alert,
+  Linking,
+} from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
-// @ts-ignore
 import { LogBox } from "react-native";
+import Geolocation from "@react-native-community/geolocation";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -345,6 +355,44 @@ export default class HomeScreen extends Component<Props> {
     );
   };
 
+  sendDistressMail = async () => {
+    // let permissionStatus;
+    // if (Platform.OS == "android") {
+    //   permissionStatus = await PermissionsAndroid.check(
+    //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
+    //   );
+    // if (!permissionStatus) {
+
+    // }
+    // }
+    Geolocation.getCurrentPosition(
+      (info) => {
+        console.warn("flex");
+        console.warn("info: ", info);
+      },
+      async (error) => {
+        if (
+          error.message == "Location permission was not granted." &&
+          Platform.OS == "android"
+        ) {
+          await PermissionsAndroid.request(
+            PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+            {
+              title: "",
+              message:
+                "Snitch needs to know your current location, so it could be sent to your contacts.",
+              buttonPositive: "Request Permission",
+              buttonNegative: "Decline",
+            }
+          );
+        } else if (error.message == "No location provider available.")
+          Alert.alert("You need to turn on your device's location", "", [
+            { text: "Go to settings", onPress: () => Linking.openSettings() },
+          ]);
+      }
+    );
+  };
+
   render() {
     const {
       route: { params },
@@ -353,7 +401,10 @@ export default class HomeScreen extends Component<Props> {
     return (
       <SafeAreaView style={styles.container}>
         <View style={{ padding: 24 }}>
-          <CustomButton text="Send Distress Mail" onPress={() => null} />
+          <CustomButton
+            text="Send Distress Mail"
+            onPress={this.sendDistressMail}
+          />
           <CustomButton
             text="View Contacts"
             onPress={() => navigation.setParams({ showModal: true })}

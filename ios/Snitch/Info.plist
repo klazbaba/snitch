@@ -38,6 +38,8 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <key>NSLocationAlwaysUsageDescription</key>
 	<string></string>
 	<key>UIAppFonts</key>
 	<array>
