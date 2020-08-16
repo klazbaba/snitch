@@ -21,6 +21,7 @@
     "native-base": "^2.13.8",
     "react": "16.13.1",
     "react-native": "0.63.0",
+    "react-native-android-location-enabler": "^1.2.1",
     "react-native-gesture-handler": "^1.5.3",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.6.2",

@@ -7,14 +7,13 @@ import {
   Easing,
   Platform,
   PermissionsAndroid,
-  Alert,
-  Linking,
 } from "react-native";
 import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { LogBox } from "react-native";
 import Geolocation from "@react-native-community/geolocation";
+import RNAndroidLocationEnabler from "react-native-android-location-enabler";
 
 import { styles } from "./styles";
 import CustomButton from "../_components/CustomButton";
@@ -355,21 +354,18 @@ export default class HomeScreen extends Component<Props> {
     );
   };
 
-  sendDistressMail = async () => {
-    // let permissionStatus;
-    // if (Platform.OS == "android") {
-    //   permissionStatus = await PermissionsAndroid.check(
-    //     PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
-    //   );
-    // if (!permissionStatus) {
+  enableLocation = async () => {
+    try {
+      const locationEnabler = await RNAndroidLocationEnabler.promptForEnableLocationIfNeeded(
+        { interval: 10000, fastInterval: 5000 }
+      );
+      if (locationEnabler == "enabled") await this.sendDistressMail();
+    } catch (error) {}
+  };
 
-    // }
-    // }
+  sendDistressMail = async () => {
     Geolocation.getCurrentPosition(
-      (info) => {
-        console.warn("flex");
-        console.warn("info: ", info);
-      },
+      (info) => console.warn("info: ", JSON.stringify(info, null, 10)),
       async (error) => {
         if (
           error.message == "Location permission was not granted." &&
@@ -386,10 +382,10 @@ export default class HomeScreen extends Component<Props> {
             }
           );
         } else if (error.message == "No location provider available.")
-          Alert.alert("You need to turn on your device's location", "", [
-            { text: "Go to settings", onPress: () => Linking.openSettings() },
-          ]);
-      }
+          this.enableLocation();
+        else console.warn(error);
+      },
+      { maximumAge: 10000, enableHighAccuracy: true, timeout: 15000 }
     );
   };
 
