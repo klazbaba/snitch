@@ -12,7 +12,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 import { Button, Icon } from "native-base";
 import { StackNavigationProp } from "@react-navigation/stack";
 import { LogBox } from "react-native";
-import Geolocation from "@react-native-community/geolocation";
+import Geolocation from "react-native-geolocation-service";
 import RNAndroidLocationEnabler from "react-native-android-location-enabler";
 
 import { styles } from "./styles";
